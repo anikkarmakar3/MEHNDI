@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/myBackround"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/myText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="Edit Product"
+        android:textSize="@dimen/_14ssp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <RadioButton
+            android:id="@+id/radioAvailable"
+            style="@style/myButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:padding="10dp"
+            android:text="Available" />
+
+        <RadioButton
+            android:id="@+id/radioNotAvailable"
+            style="@style/myButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_weight="100"
+            android:padding="10dp"
+            android:text="Not available" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etAmount"
+            style="@style/myEdittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="100"
+            android:hint="Enter amount"
+            android:inputType="number"
+            android:padding="13dp" />
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/myButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="save" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <TextView
+        style="@style/myText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="Set Discount"
+        android:textSize="@dimen/_14ssp" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <RadioButton
+            android:id="@+id/radioprice"
+            style="@style/myButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:padding="10dp"
+            android:text="as price" />
+
+        <RadioButton
+            android:id="@+id/radiopercent"
+            style="@style/myButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_weight="100"
+            android:padding="10dp"
+            android:text="as percentage" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/amount"
+            style="@style/myEdittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="100"
+            android:hint="Enter amount"
+            android:inputType="number"
+            android:padding="13dp" />
+
+        <Button
+            android:id="@+id/save"
+            style="@style/myButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="save" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sub_items"
+        style="@style/myButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="goto Sub-Items"
+        android:visibility="gone" />
+
+</LinearLayout>

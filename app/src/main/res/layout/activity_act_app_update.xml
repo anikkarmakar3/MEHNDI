@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ActAppUpdate">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:src="@drawable/baseline_cloud_download_24"
+        app:tint="@color/red" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New App Update Available"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_18ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="You're using an older version of Mehndi app update it to latest version and start using."
+        android:textAlignment="center"
+        android:textSize="@dimen/_14ssp" />
+
+    <Button
+        android:id="@+id/btnUpdateNow"
+        style="@style/myButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:text="Update Now"
+        android:textSize="@dimen/_12ssp" />
+
+</LinearLayout>

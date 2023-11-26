@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/signin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_topleftrightcirle_gradientblue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:text="LOGIN"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/id"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/id"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/id"
+            style="@style/myEdittext"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:autoSizeTextType="uniform"
+            android:hint="Enter Your Mobile Number"
+            android:paddingLeft="12dp"
+            android:textColorHint="#ffffff"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintWidth_percent=".80" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/myEdittext"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:autoSizeTextType="uniform"
+            android:hint="Enter Your Password"
+            android:inputType="textPassword"
+            android:paddingLeft="12dp"
+            android:textColorHint="#ffffff"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/id"
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintStart_toStartOf="@+id/id"
+            app:layout_constraintTop_toBottomOf="@+id/id"
+            app:layout_constraintWidth_percent=".80" />
+
+        <CheckBox
+            android:id="@+id/remember_password"
+            style="@style/myText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="48dp"
+            android:text="Remember Password"
+            android:textColor="#580000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
+
+        <TextView
+            android:id="@+id/forget_password"
+            style="@style/myButton"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Forgot Password"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/sign_in"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
+
+        <Button
+            android:id="@+id/sign_in"
+            style="@style/myButton"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="50dp"
+            android:elevation="20dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/newProfile"
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintHorizontal_bias="0.469"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.80" />
+
+        <Button
+            android:id="@+id/invoice"
+            style="@style/myButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="invoice"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Button
+            android:id="@+id/newProfile"
+            android:layout_width="200dp"
+            style="@style/myButton"
+            android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
+            android:text="Create an Account"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/sign_in"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/sign_in" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/superas"-->
+        <!--            android:layout_width="284dp"-->
+        <!--            android:layout_height="71dp"-->
+        <!--            android:text=" Login As SuperAdmin"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHeight_percent="0.09"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/newProfile"-->
+        <!--            app:layout_constraintWidth_percent="0.80" />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "245624598175",
+    "project_id": "mehndi-profile-b66bf",
+    "storage_bucket": "mehndi-profile-b66bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245624598175:android:3ee4e1f0be65ae5c593caa",
+        "android_client_info": {
+          "package_name": "com.adretsoftware.mehndipvcinterior"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245624598175-bt21uvs5a0jialfv1m3jlon3oqmgm4ev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adretsoftware.mehndipvcinterior",
+            "certificate_hash": "ffc6d51b833e528594131d062ac69e9984697bf1"
+          }
+        },
+        {
+          "client_id": "245624598175-oibbuhh7vebu9vd7mtpg1gh003pa5ke5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu3j_PSB1e93SHIrv_uAo1zt61yNfAe8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245624598175-oibbuhh7vebu9vd7mtpg1gh003pa5ke5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

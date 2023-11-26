@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginillust2"
+    tools:context=".SuperLogin">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/signin_layout"
+        android:layout_width="407dp"
+        android:layout_height="628dp"
+        android:background="@drawable/shape_topleftrightcirle_gradientblue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <TextView
+            style="@style/myText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="Super Admin Login"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/id"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+
+        <EditText
+            android:id="@+id/id"
+            style="@style/myEdittext"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeTextType="uniform"
+            android:hint="enter you mobile number"
+            android:paddingLeft="12dp"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/password"
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.786"
+            app:layout_constraintWidth_percent=".80" />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/myEdittext"
+            android:layout_width="325dp"
+            android:layout_height="57dp"
+            android:autoSizeTextType="uniform"
+            android:hint="enter you password"
+            android:inputType="textPassword"
+            android:paddingLeft="12dp"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".80" />
+
+        <CheckBox
+            android:id="@+id/remember_password"
+            style="@style/myText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:minHeight="48dp"
+            android:text="Remember Password"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
+
+        <TextView
+            android:id="@+id/forget_password"
+            style="@style/myText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="41dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="Forgot Password"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/sign_in"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/sign_in"
+            style="@style/myButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/shape_corner50dp"
+            android:elevation="20dp"
+            android:text="Sign In"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintHorizontal_bias="0.475"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password"
+            app:layout_constraintVertical_bias="0.219"
+            app:layout_constraintWidth_percent="0.80" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

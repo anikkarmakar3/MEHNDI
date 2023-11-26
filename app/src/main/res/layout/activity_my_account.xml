@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyAccount">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="My Account"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:columnCount="1"
+            android:paddingHorizontal="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/shop"
+                style="@style/myDashboard"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/invoice_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/invoice_icon" />
+
+                    <TextView
+                        style="@style/myText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Invoice"
+                        android:textAllCaps="false"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnPaymentHistory"
+                style="@style/myDashboard"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/histroy_icon" />
+
+                    <TextView
+                        style="@style/myText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="Payment History"
+                        android:textAllCaps="false"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnStatement"
+                style="@style/myDashboard"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/statement_icon" />
+
+                    <TextView
+                        style="@style/myText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="Statement"
+                        android:textAllCaps="false"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--        <androidx.cardview.widget.CardView-->
+            <!--            android:id="@+id/logout"-->
+            <!--            android:layout_margin="5dp"-->
+            <!--            style="@style/myDashboard"-->
+            <!--            android:foreground="?selectableItemBackground"-->
+            <!--            android:clickable="true"-->
+            <!--            app:cardElevation="5dp"-->
+            <!--            app:cardCornerRadius="10sp"-->
+            <!--            android:layout_rowWeight="1"-->
+            <!--            android:layout_columnWeight="1">-->
+            <!--            <LinearLayout-->
+            <!--                android:padding="10dp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:gravity="center_vertical"-->
+            <!--                android:layout_gravity="center_vertical|center_horizontal">-->
+            <!--                <ImageView-->
+            <!--                    android:src="@drawable/logout_logo"-->
+            <!--                    android:layout_width="70dp"-->
+            <!--                    android:layout_height="70dp" />-->
+            <!--                <TextView-->
+            <!--                    android:textStyle="bold"-->
+            <!--                    style="@style/myText3"-->
+            <!--                    android:text="Logout"-->
+            <!--                    android:layout_marginLeft="30dp"-->
+            <!--                    android:textSize="20sp"-->
+            <!--                    android:textAllCaps="false"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"/>-->
+            <!--            </LinearLayout>-->
+
+            <!--        </androidx.cardview.widget.CardView>-->
+
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>
