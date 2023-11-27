@@ -49,10 +49,10 @@ class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, ord
 
         val params: MutableMap<String, String> = HashMap()
 
-        /*params["id"] = MySharedStorage.getId()
-        params["user_id"] = MySharedStorage.getUserId()*/
-        params["id"] = "23"
-        params["user_id"] = "1686380538723"
+        params["id"] = MySharedStorage.getId()
+        params["user_id"] = MySharedStorage.getUserId()
+        /*params["id"] = "23"
+        params["user_id"] = "1686380538723"*/
 
         RetrofitClient.getApiHolder().getAgentUserCommission(params)
             .enqueue(object : Callback<ArrayList<CommissionModelItem>> {
