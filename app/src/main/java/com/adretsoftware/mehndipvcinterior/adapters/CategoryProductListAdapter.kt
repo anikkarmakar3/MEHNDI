@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adretsoftware.mehndipvcinterior.R
 import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.models.CategoryProductListModel
+import com.adretsoftware.mehndipvcinterior.models.CategoryProductsModelItem
 import com.bumptech.glide.Glide
 
 class CategoryProductListAdapter(
@@ -24,7 +25,8 @@ class CategoryProductListAdapter(
 ) : RecyclerView.Adapter<CategoryProductListAdapter.ViewHolder>(){
 
     var listener: CategoryProductFunctions
-    var items = arrayListOf<CategoryProductListModel>()
+    /*var items = arrayListOf<CategoryProductListModel>()*/
+    var items = arrayListOf<CategoryProductsModelItem>()
     var context: Context
 
     var whichScreen: String
@@ -49,8 +51,12 @@ class CategoryProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: CategoryProductListAdapter.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
-
-        if (items[position].status == Constants.NotAvailable || items[position].user_set_status == Constants.NotAvailable) {
+        holder.name.text = items[position].name
+        holder.tvNotAvailable.text = items[position].status
+        holder.root.setOnClickListener {
+            listener.ItemClickFunc(items[position],it)
+        }
+        /*if (items[position].status == Constants.NotAvailable || items[position].user_set_status == Constants.NotAvailable) {
             holder.tvNotAvailable.visibility = View.VISIBLE
         } else {
             holder.tvNotAvailable.visibility = View.GONE
@@ -71,15 +77,23 @@ class CategoryProductListAdapter(
                 }
                 return false
             }
-        })
+        })*/
 
 
 //        Image Url part
-        var url2 = items[position].image_url
 
-        val url = Constants.apiUrl2 + Constants.imageUrl + url2
 
-        Glide.with(holder.itemView.context).load(url).into(holder.image)
+        val imageUrl :String = Constants.apiUrl2 + items[position].image.first()
+        /* for (i in items[position].image){
+             imageUrl = Constants.apiUrl2 + i[0]
+             break
+         }*/
+
+        /*var url2 = items[position].image
+
+        val url = Constants.apiUrl2 + Constants.imageUrl + url2*/
+
+        Glide.with(holder.itemView.context).load(imageUrl).into(holder.image)
 
 
 //        if (whichScreen == "product" || whichScreen == "category") {
@@ -103,14 +117,14 @@ class CategoryProductListAdapter(
         return items.size
     }
 
-    fun update(items: ArrayList<CategoryProductListModel>) {
+    fun update(items: ArrayList<CategoryProductsModelItem>) {
         this.items = items
         notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var image = view.findViewById<ImageView>(R.id.item_image)
-        //        var price = view.findViewById<TextView>(R.id.item_price)
+        /*var price = view.findViewById<TextView>(R.id.item_price)*/
 //        var priceUnit = view.findViewById<TextView>(R.id.item_price_unit)
         var name = view.findViewById<TextView>(R.id.item_title)
         var root = view.findViewById<CardView>(R.id.item_root)
@@ -128,6 +142,6 @@ class CategoryProductListAdapter(
 }
 
 interface CategoryProductFunctions {
-    fun ItemClickFunc(item: CategoryProductListModel, view: View)
-    fun LongItemClick(item: CategoryProductListModel, view: View)
+    fun ItemClickFunc(item: CategoryProductsModelItem, view: View)
+    fun LongItemClick(item: CategoryProductsModelItem, view: View)
 }

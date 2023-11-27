@@ -1,127 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/item_root"
-    style="@style/myDashboard"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:elevation="15dp"
-    app:cardCornerRadius="10dp">
-
-    <RelativeLayout
-        android:layout_width="200dp"
-        android:layout_height="200dp">
-
-        <LinearLayout
-            android:id="@+id/lyout"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/item_image"
-                android:layout_width="match_parent"
-                android:layout_height="145dp"
-                android:background="@color/black"
-                android:scaleType="fitCenter"
-                android:src="@drawable/product_dummy_logo"
-                app:srcCompat="@drawable/placeholder" />
-
-            <TextView
-                android:id="@+id/item_title"
-                style="@style/myText4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="10dp"
-                android:maxLines="1"
-                android:text="Product Name"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:orientation="horizontal">-->
-
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/itemDiscountLayout"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="@dimen/_10ssp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:visibility="visible">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="start"-->
-<!--                        android:text="DIS. ₹ "-->
-<!--                        android:textColor="@color/red"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/itemDiscountPrice"-->
-<!--                        style="@style/myText1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="123 "-->
-<!--                        android:textColor="@color/red"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                </LinearLayout>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/item_price_unit"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="₹ "-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textStyle="bold" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/item_price"-->
-<!--                    style="@style/myText1"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="123"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:textStyle="bold" />-->
-
-<!--            </LinearLayout>-->
-
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/item_root" style="@style/myDashboard" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10dp" android:elevation="15dp" app:cardCornerRadius="10dp">
+    <RelativeLayout android:layout_width="200dp" android:layout_height="200dp">
+        <LinearLayout android:id="@+id/lyout" android:layout_width="200dp" android:layout_height="200dp" android:orientation="vertical">
+            <ImageView android:id="@+id/item_image" android:layout_width="match_parent" android:layout_height="145dp" android:background="@color/black" android:scaleType="fitCenter" android:src="@drawable/product_dummy_logo" app:srcCompat="@drawable/placeholder" />
+            <TextView android:id="@+id/item_title" style="@style/myText4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:layout_marginTop="3dp" android:layout_marginEnd="10dp" android:maxLines="1" android:text="Product Name" android:textAlignment="center" android:textSize="14sp" android:textStyle="bold" />
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="center"-->
+            <!--                android:orientation="horizontal">-->
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/itemDiscountLayout"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginEnd="@dimen/_10ssp"-->
+            <!--                    android:orientation="horizontal"-->
+            <!--                    android:visibility="visible">-->
+            <!--                    <TextView-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_gravity="start"-->
+            <!--                        android:text="DIS. ₹ "-->
+            <!--                        android:textColor="@color/red"-->
+            <!--                        android:textSize="14sp"-->
+            <!--                        android:textStyle="bold" />-->
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/itemDiscountPrice"-->
+            <!--                        style="@style/myText1"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="123 "-->
+            <!--                        android:textColor="@color/red"-->
+            <!--                        android:textSize="14sp"-->
+            <!--                        android:textStyle="bold" />-->
+            <!--                </LinearLayout>-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/item_price_unit"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="₹ "-->
+            <!--                    android:textSize="16sp"-->
+            <!--                    android:textStyle="bold" />-->
+            <!--                <TextView-->
+            <!--                    android:id="@+id/item_price"-->
+            <!--                    style="@style/myText1"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:text="123"-->
+            <!--                    android:textColor="@color/black"-->
+            <!--                    android:textSize="16sp"-->
+            <!--                    android:textStyle="bold" />-->
+            <!--            </LinearLayout>-->
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvNotAvailable"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="@color/faded_red"
-            android:paddingStart="3dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="35dp"
-            android:paddingBottom="3dp"
-            android:text="Not Available"
-            android:textAlignment="textEnd"
-            android:textColor="@color/white"
-            android:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/deleteBtn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/baseline_delete_24"
-            app:tint="@color/red" />
-
+        <TextView android:id="@+id/tvNotAvailable" android:layout_width="150dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:background="@color/faded_red" android:paddingStart="3dp" android:paddingTop="3dp" android:paddingEnd="35dp" android:paddingBottom="3dp" android:text="Not Available" android:textAlignment="textEnd" android:textColor="@color/white" android:visibility="visible" />
+        <ImageView android:id="@+id/deleteBtn" android:layout_width="25dp" android:layout_height="25dp" android:layout_marginEnd="15dp" android:visibility="gone" android:src="@drawable/baseline_delete_24" app:tint="@color/red" />
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

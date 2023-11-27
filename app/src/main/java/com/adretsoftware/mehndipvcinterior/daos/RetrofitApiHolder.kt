@@ -65,6 +65,14 @@ interface RetrofitApiHolder {
     @POST("invoice.php")
     fun saveInvoices(@Body item: InvoicesModel): Call<RetrofitResponse>
 
+    @FormUrlEncoded
+    @POST("categoryProduct.php")
+    fun getCategoryProducts(@FieldMap params: MutableMap<String, String>) : Call<ArrayList<CategoryProductsModelItem>>
+
+    @FormUrlEncoded
+    @POST("fetch-individual.php")
+    fun getAgentUserCommission(@FieldMap params: MutableMap<String, String>): Call<ArrayList<CommissionModelItem>>
+
     @Multipart
     @POST("item_by_parent.php")
     fun getItemsByParent(
@@ -161,6 +169,10 @@ interface RetrofitApiHolder {
 
     @POST("categoryProduct.php")
     fun categoryProductList(@Body cat_id: RequestBody): Call<RetrofitResponse>
+
+    @GET("offer_items.php")
+    fun getOfferItems(
+    ): Call<ArrayList<ProductOfferModelItem>>
 
     @POST("update_user.php")
     fun updateUser(@Body user: User): Call<RetrofitResponse>

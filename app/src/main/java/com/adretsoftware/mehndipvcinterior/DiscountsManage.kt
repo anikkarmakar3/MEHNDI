@@ -8,7 +8,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.adretsoftware.mehndipvcinterior.adapters.ItemAdapter
+import com.adretsoftware.mehndipvcinterior.adapters.OfferItemClick
+import com.adretsoftware.mehndipvcinterior.adapters.OfferProductItemAdapter
 import com.adretsoftware.mehndipvcinterior.adapters.itemFunctions
 import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage
@@ -23,9 +26,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DiscountsManage : AppCompatActivity(), itemFunctions {
+class DiscountsManage : AppCompatActivity(), OfferItemClick {
     lateinit var binding: ActivityDiscountsManageBinding
-    lateinit var adapter: ItemAdapter
+    lateinit var adapter: OfferProductItemAdapter
     private var isCategory: Boolean = true
 
     override fun onBackPressed() {
@@ -39,39 +42,32 @@ class DiscountsManage : AppCompatActivity(), itemFunctions {
 
         window.statusBarColor = getColor(R.color.sixty1)
 
-        adapter = ItemAdapter(
+        adapter = OfferProductItemAdapter(
             this,
-            layoutInflater,
-            applicationContext,
-            object : ItemAdapter.ClickListener {
-                override fun deleteItemClick(itemId: String) {
-
-                }
-            },
-            "",
-            true
+            this
         )
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager =
-            GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        /*binding.recyclerView.layoutManager =
+            GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)*/
 
-//        RetrofitClient.getApiHolder().getItems().enqueue(object : Callback<RetrofitItem> {
-//            override fun onResponse(call: Call<RetrofitItem>, response: Response<RetrofitItem>) {
-//                if (response.code() == Constants.code_OK) {
-//                    Log.d("TAG", response.code().toString())
-//                    adapter.update(response.body()!!.data)
-//                } else {
-//                    Log.d("TAG 2", response.code().toString() + response.message().toString())
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RetrofitItem>, t: Throwable) {
-//                Log.d("TAG", "on failure retro : ${t.localizedMessage}")
-//
-//            }
-//        })
+        RetrofitClient.getApiHolder().getOfferItems().enqueue(object : Callback<ArrayList<ProductOfferModelItem>> {
+            override fun onResponse(
+                call: Call<ArrayList<ProductOfferModelItem>>,
+                response: Response<ArrayList<ProductOfferModelItem>>
+            ) {
+                if (response.isSuccessful){
+                    adapter.dispatchDataToAdapter(response.body()!!)
+                }
+            }
 
-        RetrofitClient.getApiHolder().getOfferItems(MySharedStorage.getUserId())
+            override fun onFailure(call: Call<ArrayList<ProductOfferModelItem>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+        /*RetrofitClient.getApiHolder().getOfferItems(MySharedStorage.getUserId())
             .enqueue(object : Callback<RetrofitItem> {
                 override fun onResponse(
                     call: Call<RetrofitItem>,
@@ -101,10 +97,10 @@ class DiscountsManage : AppCompatActivity(), itemFunctions {
                 override fun onFailure(call: Call<RetrofitItem>, t: Throwable) {
                     Log.d("TAG", "getItembyParent:" + t.localizedMessage)
                 }
-            })
+            })*/
     }
 
-    override fun ItemClickFunc(item: Item, view: View) {
+    /*override fun ItemClickFunc(item: Item, view: View) {
         val gson = Gson()
         val intent = Intent(applicationContext, ItemDetail::class.java)
         intent.putExtra("item", gson.toJson(item))
@@ -187,11 +183,11 @@ class DiscountsManage : AppCompatActivity(), itemFunctions {
 //                    })
 //            }
         }
-    }
+    }*/
 
-    override fun LongItemClick(item: Item, view: View) {
+    /*override fun LongItemClick(item: Item, view: View) {
 
-    }
+    }*/
 
     fun getDiscount(
         userid: String,
@@ -266,6 +262,10 @@ class DiscountsManage : AppCompatActivity(), itemFunctions {
 
             }
         })
+    }
+
+    override fun onProductClick(productOfferModelItem: ProductOfferModelItem) {
+
     }
 
 }

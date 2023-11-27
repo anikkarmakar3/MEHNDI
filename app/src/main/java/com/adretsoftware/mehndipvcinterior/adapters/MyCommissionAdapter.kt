@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adretsoftware.mehndipvcinterior.R
 import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.daos.Utilis
+import com.adretsoftware.mehndipvcinterior.models.CommissionModelItem
 import com.adretsoftware.mehndipvcinterior.models.MyCommissionModel
 import com.bumptech.glide.Glide
 
 class MyCommissionAdapter() :
     RecyclerView.Adapter<MyCommissionAdapter.ViewHolder>() {
-    var myCommission = (arrayListOf<MyCommissionModel>())
+    /*var myCommission = (arrayListOf<MyCommissionModel>())*/
+    private var commissionData = arrayListOf<CommissionModelItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -28,21 +30,28 @@ class MyCommissionAdapter() :
         return vh
     }
 
-    fun update(myCommission: ArrayList<MyCommissionModel>) {
-        this.myCommission = myCommission
+    fun update(myCommission: ArrayList<CommissionModelItem>) {
+        this.commissionData = myCommission
         notifyDataSetChanged()
     }
 
+    /*fun update(myCommission: ArrayList<MyCommissionModel>) {
+        this.myCommission = myCommission
+        notifyDataSetChanged()
+    }*/
+
     override fun getItemCount(): Int {
-        return myCommission.size
+        return commissionData.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.orderitem_name.text = myCommission[position].name
-        holder.orderitem_code.text = myCommission[position].code
-        holder.orderitem_quantity.text = myCommission[position].quantity
+        holder.orderitem_name.text = commissionData[position].product_name
+        holder.orderitem_price.text = commissionData[position].amount
+        holder.orderbyname.text = commissionData[position].name
+        /*holder.orderitem_code.text = myCommission[position].code*/
+        /*holder.orderitem_quantity.text = commissionData[position].*/
 
-        if (myCommission[position].commission == "Percentage") {
+        /*if (myCommission[position].commission == "Percentage") {
             holder.discountTypeTxt.text = "%"
             holder.orderitem_price.text = myCommission[position].percentage
         } else {
@@ -52,11 +61,12 @@ class MyCommissionAdapter() :
 
         val url = Constants.apiUrl + Constants.imageUrl + myCommission[position].image_url
         Glide.with(holder.orderitem_name.context).load(url)
-            .into(holder.orderitem_image)
+            .into(holder.orderitem_image)*/
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var orderitem_name = view.findViewById<TextView>(R.id.orderitem_name)
+        var orderbyname = view.findViewById<TextView>(R.id.orderbyname)
         var orderitem_image = view.findViewById<ImageView>(R.id.orderitem_image)
         var orderitem_code = view.findViewById<TextView>(R.id.orderitem_code)
         var orderitem_quantity = view.findViewById<TextView>(R.id.orderitem_quantity)

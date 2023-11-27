@@ -70,6 +70,7 @@ class Login : AppCompatActivity() {
                                             Toast.LENGTH_SHORT
                                         ).show()
 
+                                        MySharedStorage.setId(fetchedUser.id)
                                         MySharedStorage.setUserId(fetchedUser.user_id)
                                         MySharedStorage.setUserType(fetchedUser.user_type)
                                         MySharedStorage.setUserAdmin(fetchedUser.is_admin)

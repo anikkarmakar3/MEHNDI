@@ -11,7 +11,7 @@ class User() {
     var user_type = ""
     var is_admin = ""
     var status = ""
-
+    var id = ""
     var total_orders_price = ""
     var total_items_price = ""
     var total_price = ""

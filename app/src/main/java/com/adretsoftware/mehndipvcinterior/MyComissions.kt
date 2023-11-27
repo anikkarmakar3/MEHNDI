@@ -41,20 +41,45 @@ class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, ord
 
         myCommissionAdapter = MyCommissionAdapter()
 //        userAdapter = UserAdapter(this, "")
-        orderAdapter = OrderAdapter(this, layoutInflater, this)
-        orderItemAdapter = OrderItemAdapter(this, Constants.COMISSION)
+        /*orderAdapter = OrderAdapter(this, layoutInflater, this)
+        orderItemAdapter = OrderItemAdapter(this, Constants.COMISSION)*/
 //        binding.recyclerView.adapter = userAdapter
         binding.recyclerView.adapter = myCommissionAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        if (MySharedStorage.getUserType() == Constants.AGENT) {
+        val params: MutableMap<String, String> = HashMap()
+
+        /*params["id"] = MySharedStorage.getId()
+        params["user_id"] = MySharedStorage.getUserId()*/
+        params["id"] = "23"
+        params["user_id"] = "1686380538723"
+
+        RetrofitClient.getApiHolder().getAgentUserCommission(params)
+            .enqueue(object : Callback<ArrayList<CommissionModelItem>> {
+                override fun onResponse(
+                    call: Call<ArrayList<CommissionModelItem>>,
+                    response: Response<ArrayList<CommissionModelItem>>
+                ) {
+                    if (response.isSuccessful){
+                        myCommissionAdapter.update(response.body()!!)
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<CommissionModelItem>>, t: Throwable) {
+                    println(t.localizedMessage)
+                }
+
+
+            })
+
+        /*if (MySharedStorage.getUserType() == Constants.AGENT) {
             binding.btnMyDistributors.visibility = View.VISIBLE
             binding.btnMyDistributors.setOnClickListener {
                 startActivity(Intent(this@MyComissions, MyDistributor::class.java))
             }
-        }
+        }*/
 
-        RetrofitClient.getApiHolder().getUserCommission(MySharedStorage.getUserId())
+        /*RetrofitClient.getApiHolder().getUserCommission(MySharedStorage.getUserId())
             .enqueue(object : Callback<RetrofitMyCommission> {
                 override fun onResponse(
                     call: Call<RetrofitMyCommission>,
@@ -78,7 +103,7 @@ class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, ord
                 override fun onFailure(call: Call<RetrofitMyCommission>, t: Throwable) {
                     Log.d("TAG", "getUserbyParent:" + t.localizedMessage)
                 }
-            })
+            })*/
 
 //        if (Utilis.isLoginAsAdmin()) {
 //            RetrofitClient.getApiHolder().getAdminCommission()

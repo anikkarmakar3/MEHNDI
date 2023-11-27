@@ -11,18 +11,36 @@
         android:id="@+id/pdf_image"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:src="@drawable/invoice_icon"/>
-
-    <TextView
-        android:id="@+id/subj_name"
+        android:src="@drawable/baseline_picture_as_pdf_24"
+        />
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height= "match_parent"
-        android:text="System Design Notes"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:padding="30dp"
-        android:textStyle="bold"
-        android:textColor="@color/black">
-    </TextView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/subj_name"
+            android:layout_width="match_parent"
+            android:layout_height= "wrap_content"
+            android:text="System Design Notes"
+            android:textSize="20sp"
+            android:textAlignment="textStart"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/black">
+        </TextView>
+        <Button
+            android:id="@+id/download_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download File"
+            android:paddingStart="10dp"
+            android:textStyle="bold"
+            android:paddingEnd="10dp"
+            android:layout_marginStart="13dp"
+            android:textColor="@color/white"
+            android:background="@color/faded_red"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>

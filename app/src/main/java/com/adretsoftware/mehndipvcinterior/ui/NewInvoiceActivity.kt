@@ -39,9 +39,9 @@ class NewInvoiceActivity : AppCompatActivity() {
                         val dataInvoice = ArrayList<InvoiceModel>()
                         dataInvoice.add(response.body()!!)
                         println(response.body()!!)
-                        binding.recylerView.layoutManager = LinearLayoutManager(applicationContext)
+                        binding.invoiceRecylerview.layoutManager = LinearLayoutManager(applicationContext)
                         adater.updateDataToAdapter(dataInvoice)
-                        binding.recylerView.adapter = adater
+                        binding.invoiceRecylerview.adapter = adater
                     }
                 }
 

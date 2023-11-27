@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.adretsoftware.mehndipvcinterior.CategoryProductListActivity
 import com.adretsoftware.mehndipvcinterior.R
@@ -82,7 +83,8 @@ class ItemAdapter(
             listener.ItemClickFunc(items[position], it)
             val intent = Intent(context,CategoryProductListActivity::class.java)
             intent.putExtra("cat_id",items[position].id)
-
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         })
         holder.root.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
@@ -94,7 +96,7 @@ class ItemAdapter(
             }
         })
 
-       var url2 = items[position].image_url
+        var url2 = items[position].image_url
 //        if (items[position].image_url!=null){
 //            val imageData =  Gson().fromJson(items[position].image_url, ProductImageResp::class.java)
 //             url2=  imageData[0].image.removeRange(0,13)
@@ -145,12 +147,12 @@ class ItemAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var image = view.findViewById<ImageView>(R.id.item_image)
-//        var price = view.findViewById<TextView>(R.id.item_price)
+        //        var price = view.findViewById<TextView>(R.id.item_price)
 //        var priceUnit = view.findViewById<TextView>(R.id.item_price_unit)
         var name = view.findViewById<TextView>(R.id.item_title)
         var root = view.findViewById<CardView>(R.id.item_root)
         var deleteBtn = view.findViewById<ImageView>(R.id.deleteBtn)
-//        var itemDiscountLayout = view.findViewById<LinearLayout>(R.id.itemDiscountLayout)
+        //        var itemDiscountLayout = view.findViewById<LinearLayout>(R.id.itemDiscountLayout)
 //        var itemDiscountPrice = view.findViewById<TextView>(R.id.itemDiscountPrice)
         var tvNotAvailable = view.findViewById<TextView>(R.id.tvNotAvailable)
     }

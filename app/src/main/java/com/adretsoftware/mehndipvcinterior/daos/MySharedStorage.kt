@@ -31,6 +31,14 @@ object MySharedStorage {
         return user
     }
 
+    fun getId() : String{
+        return preference.getString("id", "")!!
+    }
+
+    fun setId(data: String){
+        editor.putString("id", data)
+        editor.apply()
+    }
     fun setUserId(data: String) {
         editor.putString("user_id", data)
         editor.apply()

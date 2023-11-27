@@ -6,6 +6,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -24,9 +25,11 @@ class InvoiceItemAdapter(private val context:Context): RecyclerView.Adapter<Invo
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val name: TextView
         internal val image: ImageView
+        internal val button: Button
         init {
             name = itemView.findViewById(R.id.subj_name)
             image = itemView.findViewById(R.id.pdf_image)
+            button = itemView.findViewById(R.id.download_btn)
         }
     }
 
@@ -42,7 +45,7 @@ class InvoiceItemAdapter(private val context:Context): RecyclerView.Adapter<Invo
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val resultString = invoiceData[position].url.substringAfterLast('/')
         holder.name.text = resultString
-        holder.itemView.setOnClickListener{
+        holder.button.setOnClickListener{
             try {
                 var download= context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                 var PdfUri = Uri.parse("https://"+invoiceData[position].url)
