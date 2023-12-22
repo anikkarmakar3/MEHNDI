@@ -57,7 +57,10 @@ class CartItemAdapter(
 //        holder.delete.setOnClickListener(View.OnClickListener {
 //            listener.deleteItem(position)
 //        })
-        val url=Constants.apiUrl+Constants.imageUrl+items[position].image_url
+        if(items[position].image_url.length>0){
+
+        }
+        val url=Constants.apiUrl+Constants.imageUrl+(items[position].image_url).substringAfterLast("/")
         Log.d("TAG",url)
         Glide.with(holder.itemView.context).load(url).into(holder.image)
     }

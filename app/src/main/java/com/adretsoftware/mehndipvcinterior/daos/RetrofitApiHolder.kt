@@ -46,7 +46,7 @@ interface RetrofitApiHolder {
     fun SaveGalleryImage(@Body item: PictureGalleryModel): Call<RetrofitResponse>
 
     @GET("picture_gallery.php")
-    fun getGalleryImage(): Call<RetrofitPictureGalleryItem>
+    fun getGalleryImage(): Call<GetGalleryModel>
 
     @GET("invoice.php")
     fun getInvoices(): Call<RetrofitInvoicesItem>
@@ -294,7 +294,7 @@ interface RetrofitApiHolder {
 
     @Multipart
     @POST("get_order_item.php")
-    fun getOrderItems(@Part("order_id") order_id: RequestBody): Call<RetrofitOrderItem>
+    fun getOrderItems(@Part("order_id") order_id: RequestBody): Call<OrderItemModelDetails>
 
     @GET("gallery_category.php")
     fun getImageCategoryId(): Call<CategoryIdResp>

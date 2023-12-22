@@ -9,6 +9,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.adretsoftware.mehndipvcinterior.R
 import com.adretsoftware.mehndipvcinterior.daos.Constants
+import com.adretsoftware.mehndipvcinterior.models.Data
+import com.adretsoftware.mehndipvcinterior.models.GetGalleryModel
 import com.adretsoftware.mehndipvcinterior.models.PictureGalleryModel
 import com.bumptech.glide.Glide
 
@@ -20,7 +22,7 @@ class Picture_Product_ItemAdapter(
 ) : RecyclerView.Adapter<Picture_Product_ItemAdapter.ViewHolder>() {
 
     var listener: RecycleItemClickListener
-    var items = arrayListOf<PictureGalleryModel>()
+    var items = arrayListOf<Data>()
 
     init {
         this.listener = listener
@@ -37,7 +39,7 @@ class Picture_Product_ItemAdapter(
         return items.size
     }
 
-    fun update(items: ArrayList<PictureGalleryModel>) {
+    fun update(items: ArrayList<Data>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -51,7 +53,7 @@ class Picture_Product_ItemAdapter(
 //            holder.price.text = items[position].price
 //            holder.priceUnit.visibility=View.VISIBLE
 //        }
-        val url = Constants.apiUrl + Constants.imageUrl + items[position].picture_image
+        val url = Constants.apiUrl + Constants.imageUrl + items[position].filename
         holder.root.setOnClickListener(View.OnClickListener {
            // listener.onItemClick(url, items[position].picture_name)
         })

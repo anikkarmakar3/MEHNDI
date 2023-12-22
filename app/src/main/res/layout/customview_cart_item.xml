@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/cart_image"
-            android:layout_width="71dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 

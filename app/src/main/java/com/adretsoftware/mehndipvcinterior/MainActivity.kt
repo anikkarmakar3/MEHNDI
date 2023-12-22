@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(
                 Intent(
                     applicationContext,
-                    Picture_Product_List_Activity::class.java
+                    GalleryCategoryPage::class.java
                 )
             )
         }

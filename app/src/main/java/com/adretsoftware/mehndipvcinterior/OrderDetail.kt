@@ -63,21 +63,39 @@ class OrderDetail : AppCompatActivity(), orderItemFunctions {
             binding.cancelbtn.visibility = View.VISIBLE
         val order_id = RequestBody.create(MediaType.parse("text/plain"), order.order_id)
         RetrofitClient.getApiHolder().getOrderItems(order_id)
-            .enqueue(object : Callback<RetrofitOrderItem> {
+            .enqueue(object : Callback<OrderItemModelDetails>{
                 override fun onResponse(
-                    call: Call<RetrofitOrderItem>,
-                    response: Response<RetrofitOrderItem>
+                    call: Call<OrderItemModelDetails>,
+                    response: Response<OrderItemModelDetails>
                 ) {
                     if (response.code() == Constants.code_OK) {
-                        orderItems = response.body()!!.data
-                        adapter.update(orderItems)
+                        val orderItem: List<OrderItemModelDetailsItem>? = response.body()!!
+                        Log.d("TAG", "getOrderITem:" + orderItem)
+                        val orderItemDetails = ArrayList<OrderItem>()
+                        orderItem?.forEach {
+                            val orderItem = OrderItem()
+                            orderItem.order_id = it.order_id
+                            orderItem.item_id = it.item_id
+                            /*orderItem.status = it.item_id*/
+                            orderItem.code = it.code
+                            orderItem.image_url = it.image_url
+                            orderItem.quantity = it.quantity
+                            orderItem.total_price = it.total_price
+                            orderItem.price = it.price
+                            orderItem.about = it.about
+                            orderItem.name = it.name
+                            orderItem.features = it.features
+                            orderItemDetails.add(orderItem)
+                        }
+                        adapter.update(orderItemDetails)
                     } else
                         Log.d("TAG", "getOrderITem:" + response.code())
                 }
 
-                override fun onFailure(call: Call<RetrofitOrderItem>, t: Throwable) {
-                    Log.d("TAG", "getOrderItem:" + t.localizedMessage)
+                override fun onFailure(call: Call<OrderItemModelDetails>, t: Throwable) {
+                    Log.d("TAG", "getOrderITem:" + t.localizedMessage)
                 }
+
             })
 
     }

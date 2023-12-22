@@ -19,11 +19,9 @@ import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage
 import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
 import com.adretsoftware.mehndipvcinterior.data.model.ProductImage.CategoryId.CategoryIdResp
-import com.adretsoftware.mehndipvcinterior.data.model.ProductImage.CategoryId.CategoryIdRespItem
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityAddPhotoGalleryBinding
 import com.adretsoftware.mehndipvcinterior.databinding.CustomviewImageBinding
 import com.adretsoftware.mehndipvcinterior.models.PictureGalleryModel
-import com.adretsoftware.mehndipvcinterior.models.RetrofitPictureGalleryItem
 import com.adretsoftware.mehndipvcinterior.models.RetrofitResponse
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -63,6 +61,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
     var caterGoryId : ArrayList<String> = arrayListOf()
     var caterGoryName : ArrayList<String> = arrayListOf()
     var uriGlobal:Uri? = null
+    private lateinit var imageFile: File
 
     private val PERMISSION_REQUEST_CODE: Int = 101
     private lateinit var binding: ActivityAddPhotoGalleryBinding
@@ -94,24 +93,24 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
         getUserId =MySharedStorage.getUserId()
         Log.d("userid", getUserId)
 
-//         getGalleryCategory()
+        getGalleryCategory()
 
         binding.uploadbtn.setOnClickListener {
-           /* if (uriGlobal!=null) {
+            if (uriGlobal!=null) {
+                newImageUpload(imageFile)
+            } else {
                 Toast.makeText(applicationContext, "fill all the fields first!", Toast.LENGTH_LONG)
                     .show()
-            } else {*/
-             //   upload()
-         //   }
+            }
 
-            val imageBinding = imageViewTable[requestCode]
+            /*val imageBinding = imageViewTable[requestCode]
             CoroutineScope(Dispatchers.IO).launch {
                 imageUpload(uriGlobal, item_id, imageBinding)
-            }
+            }*/
 
         }
 
-        binding.mainImage.insert.setOnClickListener(View.OnClickListener {
+        binding.mainImage.root.setOnClickListener(View.OnClickListener {
             requestPermission()
         })
 
@@ -132,8 +131,8 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
 
                     if (report!!.areAllPermissionsGranted()) {
 
-                        photoPick(binding.mainImage.hashCode())
-                        imageViewTable.put(binding.mainImage.hashCode(), binding.mainImage)
+                        photoPick(204)
+                        /*imageViewTable.put(binding.mainImage.hashCode(), binding.mainImage)*/
                         //  photoPick(2000)
 
                     } else {
@@ -180,10 +179,11 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
             if (uri != null) {
                 try {
                   uriGlobal = uri
-                  /*  val imageBinding = imageViewTable[requestCode]
-                    CoroutineScope(Dispatchers.IO).launch {
-                        imageUpload(uri, item_id, imageBinding)
-                    }*/
+                    binding.mainImage.imageview.setImageURI(uriGlobal)
+                    binding.mainImage.insert.visibility = View.GONE
+                    binding.mainImage.delete.visibility = View.GONE
+                    imageFile = File(RealPathUtil.getRealPath(this, uriGlobal!!)!!)
+                    /*newImageUpload(imageFile)*/
                    this.requestCode=requestCode
 
                 } catch (e: Exception) {
@@ -195,6 +195,55 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    private fun newImageUpload(file: File) {
+        CoroutineScope(Dispatchers.Main).launch {
+            val compressedImage = Compressor.compress(applicationContext, file) {
+                default(504, 896, Bitmap.CompressFormat.PNG, 60)
+            }
+            Log.d("TAG", "orginalSize: ${file.length()} compressedSize:${compressedImage.length()}")
+            val fileName = getNewFileName(file.name)
+            val requestFile = RequestBody.create(MediaType.parse("image/*"), compressedImage);
+            val id = RequestBody.create(MediaType.parse("text/plain"), System.currentTimeMillis().toString())
+            val UserId = RequestBody.create(MediaType.parse("text/plain"), getUserId)
+            val catid = RequestBody.create(MediaType.parse("text/plain"), caterGoryId[selectedPosition])
+            val body = MultipartBody.Part.createFormData("uploaded_file", fileName, requestFile)
+            RetrofitClient.getApiHolder().imageUpload(body, id, UserId, catid)
+                .enqueue(object :
+                    Callback<RetrofitResponse> {
+                    override fun onResponse(
+                        call: Call<RetrofitResponse>,
+                        response: Response<RetrofitResponse>
+                    ) {
+                        if (response.code() == 200) {
+                            Toast.makeText(
+                                applicationContext,
+                                "uploaded!",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            Log.d("TAG ", response.code().toString())
+                        } else {
+                            Log.d("TAG ", response.code().toString())
+                            Toast.makeText(
+                                applicationContext,
+                                "Failed!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<RetrofitResponse>, t: Throwable) {
+                        Toast.makeText(
+                            applicationContext,
+                            "upload failed! ${t.localizedMessage}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("TAG", "photo upload failed: ${t.localizedMessage}")
+                    }
+                })
         }
     }
 
@@ -233,12 +282,12 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
 ////            }
 //
 //            try {
-//                if(imageUri!=null)
+//                if(imageUri!=null)imageUpload
 //                {
 //                    Log.d("TAG","onActivityResult Image received")
 //                    val imageBinding= imageViewTable[requestCode]
 //                    CoroutineScope(Dispatchers.Main).launch {
-//                        imageUpload(imageUri, item_id, imageBinding)
+//                        (imageUri, item_id, imageBinding)
 //                    }
 //                }
 //            }catch (e:Exception)
@@ -259,8 +308,8 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
             {
                 imageBinding?.imageview?.setImageURI(imageUri)
                 imageBinding?.insert?.visibility = View.GONE
-                progressBarFunc(imageBinding!!)
-                imageBinding.retry.visibility = View.GONE
+                /*progressBarFunc(imageBinding!!)
+                imageBinding.retry.visibility = View.GONE*/
             }
 
             val file = File(RealPathUtil.getRealPath(this, imageUri))
@@ -280,7 +329,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
 //                val requestFile= RequestBody.create(MediaType.parse("multipart/form-data"), file);
             val body = MultipartBody.Part.createFormData("uploaded_file", fileName, requestFile)
 
-            RetrofitClient.getApiHolder().imageUpload(body, id,  UserId ,catid).enqueue(object :
+            /*RetrofitClient.getApiHolder().imageUpload(body, id,  UserId ,catid).enqueue(object :
                 Callback<RetrofitResponse> {
                 override fun onResponse(
                     call: Call<RetrofitResponse>,
@@ -322,7 +371,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
                     ).show()
                     Log.d("TAG", "photo upload failed: ${t.localizedMessage}")
                 }
-            })
+            })*/
         }
     }
 

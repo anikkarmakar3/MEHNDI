@@ -89,7 +89,6 @@ class Cart : AppCompatActivity(), cartItemFunctions {
     }
 
     fun updateData() {
-
         binding.amount.text = price.toString()
         adapter.update(items)
     }
@@ -213,7 +212,7 @@ class Cart : AppCompatActivity(), cartItemFunctions {
             val orderItem = OrderItem()
             orderItem.fromCartItem(item)
             orderItem.order_id = order.order_id
-            order.produt_id = item.item_id
+            order.product_id = item.item_id
 
 
             RetrofitClient.getApiHolder().setOrderItems(orderItem)

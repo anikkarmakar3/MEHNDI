@@ -28,7 +28,7 @@ class NewInvoiceActivity : AppCompatActivity() {
         setContentView(binding.root)
         adater = InvoiceItemAdapter(this)
         val params= hashMapOf<String,String>()
-        params.put("phone","9876543210")
+        params.put("phone",MySharedStorage.getUserr().mobile)
         RetrofitClient.getApiHolder().newGetUserInvoice(params)
             .enqueue(object : Callback<InvoiceModel> {
                 override fun onResponse(

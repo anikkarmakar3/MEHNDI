@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginRight="30dp"
     android:elevation="15dp"
+    android:id="@+id/root"
     app:layout_constraintDimensionRatio="1:1">
 
     <Button

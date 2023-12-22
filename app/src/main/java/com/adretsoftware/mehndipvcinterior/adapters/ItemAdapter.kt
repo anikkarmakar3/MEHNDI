@@ -70,6 +70,7 @@ class ItemAdapter(
         holder.name.text = items[position].name
 //        if (items[position].price.isNullOrEmpty() || items[position].price == "null") {
 //            holder.price.text = ""
+
 //            holder.priceUnit.visibility = View.GONE
 //        } else {
 //            if (items[position].individual_discount.isNullOrEmpty()) {

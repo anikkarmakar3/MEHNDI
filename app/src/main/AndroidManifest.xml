@@ -14,13 +14,25 @@
         android:theme="@style/Theme.MehndiInterior"
         tools:targetApi="31">
         <activity
-            android:name=".ui.NewInvoiceActivity"
-            android:exported="false">
+            android:name=".GalleryCategoryPage"
+            android:exported="true">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".ui.NewInvoiceActivity"
+            android:exported="false">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".CategoryProductListActivity"
@@ -94,11 +106,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".OrdersSeller"
             android:exported="false" />
-
         <activity
             android:name=".MyDistributor"
             android:exported="false" />
@@ -150,6 +160,7 @@
         <activity
             android:name=".Login"
             android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -160,6 +171,10 @@
                 android:resource="@xml/provider_paths" />
         </provider>
     </application>
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

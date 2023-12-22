@@ -68,7 +68,7 @@ class CategoryProductListActivity : AppCompatActivity(), CategoryProductFunction
     private fun getCategoriesProductListData() {
         val params: MutableMap<String, String> = HashMap()
 
-        params["cat_id"] = "3"
+        params["cat_id"] = catId
 
         RetrofitClient.getApiHolder().getCategoryProducts(params)
             .enqueue(object : Callback<ArrayList<CategoryProductsModelItem>> {

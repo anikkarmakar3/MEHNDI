@@ -8,5 +8,5 @@ class Order {
     var date=""
     var title=""
     var name=""
-    var produt_id=""
+    var product_id=""
 }

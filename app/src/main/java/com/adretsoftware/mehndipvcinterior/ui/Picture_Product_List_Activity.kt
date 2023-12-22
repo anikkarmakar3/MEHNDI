@@ -15,6 +15,8 @@ import com.adretsoftware.mehndipvcinterior.adapters.RecycleItemClickListener
 import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityPictureProductListBinding
+import com.adretsoftware.mehndipvcinterior.models.Data
+import com.adretsoftware.mehndipvcinterior.models.GetGalleryModel
 import com.adretsoftware.mehndipvcinterior.models.RetrofitPictureGalleryItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,13 +49,13 @@ class Picture_Product_List_Activity : AppCompatActivity(), RecycleItemClickListe
         }
 
         RetrofitClient.getApiHolder().getGalleryImage()
-            .enqueue(object : Callback<RetrofitPictureGalleryItem> {
+            .enqueue(object : Callback<GetGalleryModel> {
                 override fun onResponse(
-                    call: Call<RetrofitPictureGalleryItem>,
-                    response: Response<RetrofitPictureGalleryItem>
+                    call: Call<GetGalleryModel>,
+                    response: Response<GetGalleryModel>
                 ) {
                     if (response.code() == Constants.code_OK) {
-                        pictureProductItemadapter.update(response.body()!!.data)
+                        pictureProductItemadapter.update(response.body()!!.data as ArrayList<Data>)
                     } else if (response.code() == Constants.code_NO_CONTENT) {
                         Toast.makeText(
                             applicationContext, "no data found", Toast.LENGTH_SHORT
@@ -63,9 +65,12 @@ class Picture_Product_List_Activity : AppCompatActivity(), RecycleItemClickListe
                     }
                 }
 
-                override fun onFailure(call: Call<RetrofitPictureGalleryItem>, t: Throwable) {
-                    Log.d("TAG", "getUserbyParent:" + t.getLocalizedMessage())
+                override fun onFailure(call: Call<GetGalleryModel>, t: Throwable) {
+                    Toast.makeText(
+                        applicationContext, "network problem", Toast.LENGTH_SHORT
+                    ).show()
                 }
+
             })
     }
 

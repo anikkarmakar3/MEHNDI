@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.widget.Toast
 import com.adretsoftware.mehndipvcinterior.adapters.SliderAdapter
 import com.adretsoftware.mehndipvcinterior.daos.Constants
+import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage
 import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityItemDetailBinding
 import com.adretsoftware.mehndipvcinterior.databinding.CustomviewItemImageBinding
@@ -20,7 +22,7 @@ import retrofit2.Call
 
 class ItemDetail : AppCompatActivity() {
     lateinit var binding: ActivityItemDetailBinding
-    /*lateinit var item: Item*/
+    lateinit var item: Item
     lateinit var productItem: CategoryProductsModelItem
     var price: Float = 0F
 
@@ -66,9 +68,9 @@ class ItemDetail : AppCompatActivity() {
 //            binding.addtocart.visibility = View.GONE
 //        }
 
-        /*binding.addtocart.setOnClickListener(View.OnClickListener {
+        binding.addtocart.setOnClickListener{
             addtoCart()
-        })*/
+        }
         var imageUrl = ArrayList<Image>()
         productItem.image.forEach {
             val image = Image()
@@ -160,7 +162,20 @@ class ItemDetail : AppCompatActivity() {
 //        }
 //    }
 
-    /*fun addtoCart() {
+    fun addtoCart() {
+        val item = Item()
+        productItem.let {
+            item.item_id=it.id
+            item.code = it.code
+            item.about = it.about
+            item.price = it.price
+            /*item.id = it.id*/
+            item.features = it.features
+            item.status= it.status
+            item.image_url = it.image[0]
+            item.name = it.name
+            item.quantity = it.quantity
+        }
         val cart = CartItem()
         cart.fromItem(item)
         cart.item_id = item.item_id
@@ -171,7 +186,7 @@ class ItemDetail : AppCompatActivity() {
         } else {
             cart.price = item.price
             cart.total_price = item.price
-        }*/
+        }
 
 //        if (!item.discount.isNullOrEmpty()) {
 //            binding.price.setText((price - item.discount.toInt()).toString())
@@ -179,7 +194,7 @@ class ItemDetail : AppCompatActivity() {
 //            binding.price.setText((price - item.amount.toInt()).toString())
 //        }
 
-    /*cart.quantity = "1"
+    cart.quantity = "1"
     RetrofitClient.getApiHolder().setCart(cart)
         .enqueue(object : retrofit2.Callback<RetrofitResponse> {
             override fun onResponse(
@@ -203,7 +218,7 @@ class ItemDetail : AppCompatActivity() {
 
         })
 
-}*/
+}
 
     /*fun priceLoad(item: Item) {
         val user_id = RequestBody.create(MediaType.parse("text/plain"), MySharedStorage.getUserId())

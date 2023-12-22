@@ -55,7 +55,7 @@ class OrderItemAdapter(
         holder.price.text=items[position].price
         holder.quantity.text=items[position].quantity
         holder.root.setOnClickListener { listener.itemClick(items[position].item_id) }
-        val url=Constants.apiUrl+Constants.imageUrl+items[position].image_url
+        val url=Constants.apiUrl+Constants.imageUrl+items[position].image_url.substringAfterLast("/")
         Log.d("TAG",url)
         Glide.with(holder.itemView.context).load(url).into(holder.image)
         if(command==Constants.COMISSION){
