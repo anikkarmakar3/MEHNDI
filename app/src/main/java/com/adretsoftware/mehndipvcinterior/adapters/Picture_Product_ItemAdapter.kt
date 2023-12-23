@@ -55,7 +55,7 @@ class Picture_Product_ItemAdapter(
 //        }
         val url = Constants.apiUrl + Constants.imageUrl + items[position].filename
         holder.root.setOnClickListener(View.OnClickListener {
-           // listener.onItemClick(url, items[position].picture_name)
+           listener.onItemClick(url, items[position].filename)
         })
 //        Log.d("TAG",url)
         Glide.with(holder.itemView.context).load(url).into(holder.image)

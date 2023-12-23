@@ -4,14 +4,20 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.adretsoftware.mehndipvcinterior.adapters.GalleryCtaegoryAdapter
+import com.adretsoftware.mehndipvcinterior.adapters.GalleryItemFunctions
 import com.adretsoftware.mehndipvcinterior.adapters.ItemAdapter
 import com.adretsoftware.mehndipvcinterior.adapters.itemFunctions
 import com.adretsoftware.mehndipvcinterior.daos.Constants
+import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
+import com.adretsoftware.mehndipvcinterior.data.model.ProductImage.CategoryId.CategoryIdResp
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityGalleryCategoryPageBinding
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityItemsBinding
+import com.adretsoftware.mehndipvcinterior.models.GalleryCategoryModelItem
 import com.adretsoftware.mehndipvcinterior.models.Item
 import com.adretsoftware.mehndipvcinterior.models.ItemDelete
 import com.adretsoftware.mehndipvcinterior.ui.Picture_Product_List_Activity
@@ -19,8 +25,11 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class GalleryCategoryPage : AppCompatActivity(), itemFunctions {
+class GalleryCategoryPage : AppCompatActivity(), GalleryItemFunctions {
     lateinit var binding: ActivityGalleryCategoryPageBinding
     lateinit var adapter: GalleryCtaegoryAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,39 +62,37 @@ class GalleryCategoryPage : AppCompatActivity(), itemFunctions {
         binding.recyclerView.layoutManager =
             GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
 
-        getCategoriesData()
+        getGalleryCategory()
     }
 
-    private fun getCategoriesData() {
-        Volley.newRequestQueue(applicationContext).add(
-            StringRequest(
-                Request.Method.GET,
-                Constants.apiUrl + "category.php",
-                { response ->
-
-                    val responseData = JSONObject(response)
-                    val jsonArray = responseData.getJSONArray("data")
-
-                    val items = ArrayList<Item>()
-                    for (i in 0 until jsonArray.length()) {
-                        items.add(Item.fromJsonObject(jsonArray.getJSONObject(i)))
+    private fun getGalleryCategory(){
+        RetrofitClient.getApiHolder().getGalleyCategoryId()
+            .enqueue(object : Callback<List<GalleryCategoryModelItem>> {
+                override fun onResponse(
+                    call: Call<List<GalleryCategoryModelItem>>,
+                    response: Response<List<GalleryCategoryModelItem>>
+                ) {
+                    if (response.isSuccessful){
+                        adapter.update(response.body() as ArrayList<GalleryCategoryModelItem>)
                     }
+                }
 
-                    adapter.update(items)
-                },
-                { })
-        )
+                override fun onFailure(call: Call<List<GalleryCategoryModelItem>>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
     }
 
 
-    override fun ItemClickFunc(item: Item, view: View) {
+    override fun ItemClickFunc(item: GalleryCategoryModelItem, view: View) {
         val intent = Intent(this, Picture_Product_List_Activity::class.java)
-        intent.putExtra("cat_id",item.id)
+        intent.putExtra("cat_id",item.cat_id)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
 
-    override fun LongItemClick(item: Item, view: View) {
+    override fun LongItemClick(item: GalleryCategoryModelItem, view: View) {
         TODO("Not yet implemented")
     }
 }

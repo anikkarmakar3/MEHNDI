@@ -17,7 +17,6 @@ import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityPictureProductListBinding
 import com.adretsoftware.mehndipvcinterior.models.Data
 import com.adretsoftware.mehndipvcinterior.models.GetGalleryModel
-import com.adretsoftware.mehndipvcinterior.models.RetrofitPictureGalleryItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,11 +28,13 @@ class Picture_Product_List_Activity : AppCompatActivity(), RecycleItemClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_picture_product_list)
-        init()
         bindAdapter()
+        val bundle = intent.extras
+        val catid = bundle?.getString("cat_id").toString()
+        init(catid)
     }
 
-    private fun init() {
+    private fun init(catid: String) {
 //        if (Utilis.isLoginAsAdmin()) {
 //            binding.btnFab.visibility = View.VISIBLE
 //        } else {
@@ -48,7 +49,7 @@ class Picture_Product_List_Activity : AppCompatActivity(), RecycleItemClickListe
             )
         }
 
-        RetrofitClient.getApiHolder().getGalleryImage()
+        RetrofitClient.getApiHolder().getGalleryImage(catid)
             .enqueue(object : Callback<GetGalleryModel> {
                 override fun onResponse(
                     call: Call<GetGalleryModel>,

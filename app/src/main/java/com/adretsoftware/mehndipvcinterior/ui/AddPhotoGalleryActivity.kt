@@ -2,17 +2,32 @@ package com.adretsoftware.mehndipvcinterior.ui
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.ContentValues.TAG
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
+import android.view.Surface
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import com.adretsoftware.mehndipvcinterior.BuildConfig
 import com.adretsoftware.mehndipvcinterior.R
 import com.adretsoftware.mehndipvcinterior.RealPathUtil
 import com.adretsoftware.mehndipvcinterior.daos.Constants
@@ -41,9 +56,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import java.lang.Exception
-import java.util.ArrayList
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Hashtable
+import java.util.Locale
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -70,13 +87,62 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
     var getUserId = ""
 
     var requestCode=0
+    val REQUEST_CODE = 400
+    var photoFile : File?= null
+    val imageCapture = ImageCapture.Builder()
+        .setTargetRotation(Surface.ROTATION_0)
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_photo_gallery)
         init()
+        binding.capturebtn.setOnClickListener {
+            val file = File(externalMediaDirs.first(), "${System.currentTimeMillis()}.jpg")
 
+            val outputOptions = ImageCapture.OutputFileOptions.Builder(file).build()
+
+            imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    // Image saved successfully
+                    uriGlobal = Uri.fromFile(file)
+                    binding.mainImage.imageview.setImageURI(uriGlobal)
+                    binding.mainImage.insert.visibility = View.GONE
+                    binding.mainImage.delete.visibility = View.GONE
+                    imageFile = File(RealPathUtil.getRealPath(applicationContext, uriGlobal!!)!!)
+                    Toast.makeText(applicationContext, "Image saved: $uriGlobal", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    // Handle error
+                    Log.e(TAG, "Error capturing image: ${exception.message}", exception)
+                }
+            })
+            binding.viewFinder.visibility = View.GONE
+            binding.capturebtn.visibility = View.GONE
+        }
+    }
+
+    private fun showOptionsDialog() {
+        val options = arrayOf("Gallery", "Camera")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Choose an option")
+            .setItems(options) { dialogInterface: DialogInterface, which: Int ->
+                // Dismiss the dialog when an option is selected
+                dialogInterface.dismiss()
+
+                // Handle the selected option
+                when (which) {
+                    0 -> requestPermission(0)
+                    1 -> requestPermission(1)
+                    else -> {}
+                }
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun init() {
@@ -85,6 +151,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
         } else {
             permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            permissionList.add(Manifest.permission.CAMERA)
         }
         
         
@@ -111,8 +178,26 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
         }
 
         binding.mainImage.root.setOnClickListener(View.OnClickListener {
-            requestPermission()
+            showOptionsDialog()
+            /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted, open the camera
+                startCamera()
+            } else {
+                // Request camera permission
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_REQUEST_CODE)
+            }*/
         })
+
+        /*override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+            if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, start the camera
+                startCamera()
+            } else {
+                // Permission denied, handle accordingly
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }*/
+
 
 
 
@@ -122,7 +207,60 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
 //        imageViewTable.put(binding.mainImage.hashCode(),binding.mainImage)
     }
 
-    private fun requestPermission() {
+    private fun startCamera() {
+        /*val imageCapture = ImageCapture.Builder()
+            .setTargetRotation(Surface.ROTATION_0)
+            .build()*/
+        binding.viewFinder.visibility = View.VISIBLE
+        binding.capturebtn.visibility = View.VISIBLE
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            // Bind the camera
+            bindCameraUseCases(cameraProvider, imageCapture)
+        }, ContextCompat.getMainExecutor(this))
+
+    }
+
+    private fun bindCameraUseCases(cameraProvider: ProcessCameraProvider, imageCapture: ImageCapture) {
+        val viewFinder: PreviewView = findViewById(R.id.viewFinder)
+        val preview = Preview.Builder()
+            .build()
+            .also {
+                it.setSurfaceProvider(viewFinder.surfaceProvider)
+            }
+
+        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+        try {
+            // Unbind previous use cases before binding new ones
+            cameraProvider.unbindAll()
+
+            // Bind use cases to camera
+            cameraProvider.bindToLifecycle(
+                this,
+                cameraSelector,
+                preview,
+                imageCapture
+            )
+
+        } catch (e: Exception) {
+            // Handle exceptions
+            Log.e(TAG, "Error binding camera use cases", e)
+        }
+    }
+
+
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
+    }
+
+
+    private fun requestPermission(data:Int) {
         Dexter.withContext(this)
             .withPermissions(
                 permissionList
@@ -131,10 +269,30 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
 
                     if (report!!.areAllPermissionsGranted()) {
 
-                        photoPick(204)
+                        when(data){
+                            0 -> photoPick(203)
+                            1-> startCamera()
+                        }
+
                         /*imageViewTable.put(binding.mainImage.hashCode(), binding.mainImage)*/
                         //  photoPick(2000)
-
+                        /*val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        photoFile = try {
+                            createImageFile()
+                        } catch (ex: IOException) {
+                            // Handle error when creating the file
+                            null
+                        }
+                        photoFile?.also {
+                            val photoURI: Uri = FileProvider.getUriForFile(
+                                applicationContext,
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                it
+                            )
+                            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                            startActivityForResult(cameraIntent, REQUEST_CODE)
+                        }
+*/
                     } else {
                         Toast.makeText(
                             this@AddPhotoGalleryActivity,
@@ -174,6 +332,22 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
+            /*val image = data!!.extras!!["data"] as Bitmap?
+
+            if (data == null) {
+                // The photo was successfully captured and saved to the file
+                // Use the URI of the saved file (photoFile) as needed
+                val savedUri = Uri.fromFile(photoFile)
+                binding.mainImage.imageview.setImageURI(savedUri)
+                binding.mainImage.insert.visibility = View.GONE
+                binding.mainImage.delete.visibility = View.GONE
+                imageFile = File(RealPathUtil.getRealPath(this, uriGlobal!!)!!)
+                *//*Toast.makeText(this, "Image saved: $savedUri", Toast.LENGTH_SHORT).show()*//*
+            } else {
+                // Handle unexpected data in the intent (this should not happen in this case)
+                Toast.makeText(this, "Unexpected data in the intent", Toast.LENGTH_SHORT).show()
+            }*/
+
             val uri = data?.data
 
             if (uri != null) {
@@ -183,7 +357,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
                     binding.mainImage.insert.visibility = View.GONE
                     binding.mainImage.delete.visibility = View.GONE
                     imageFile = File(RealPathUtil.getRealPath(this, uriGlobal!!)!!)
-                    /*newImageUpload(imageFile)*/
+                    newImageUpload(imageFile)
                    this.requestCode=requestCode
 
                 } catch (e: Exception) {

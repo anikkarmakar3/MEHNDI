@@ -46,7 +46,7 @@ interface RetrofitApiHolder {
     fun SaveGalleryImage(@Body item: PictureGalleryModel): Call<RetrofitResponse>
 
     @GET("picture_gallery.php")
-    fun getGalleryImage(): Call<GetGalleryModel>
+    fun getGalleryImage(@Query("cat_id") cat_id: String): Call<GetGalleryModel>
 
     @GET("invoice.php")
     fun getInvoices(): Call<RetrofitInvoicesItem>
@@ -299,6 +299,6 @@ interface RetrofitApiHolder {
     @GET("gallery_category.php")
     fun getImageCategoryId(): Call<CategoryIdResp>
 
-
-
+    @GET("fetch-gallery-with-img.php")
+    fun getGalleyCategoryId(): Call<List<GalleryCategoryModelItem>>
 }
