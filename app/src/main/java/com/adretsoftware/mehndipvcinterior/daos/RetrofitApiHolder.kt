@@ -73,6 +73,10 @@ interface RetrofitApiHolder {
     @POST("fetch-individual.php")
     fun getAgentUserCommission(@FieldMap params: MutableMap<String, String>): Call<ArrayList<CommissionModelItem>>
 
+    @FormUrlEncoded
+    @POST("fetch-indivisual-price.php")
+    fun getNewAgentUserCommission(@FieldMap params: MutableMap<String, String>): Call<ArrayList<NewCommisionModelItem>>
+
     @Multipart
     @POST("item_by_parent.php")
     fun getItemsByParent(
@@ -259,6 +263,10 @@ interface RetrofitApiHolder {
         @Query("endDate") endDate: String,
         @Query("userId") userId: String
     ): Call<RetrofitOrder>
+
+    @FormUrlEncoded
+    @POST("tree-view.php")
+    fun getTeamMembers(@FieldMap params: Map<String, String>):Call<List<MyTeamAdapterItem>>
 
     @GET("transaction_report.php")
     fun getTransactionReport(

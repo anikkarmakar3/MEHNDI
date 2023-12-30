@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.GridLayoutManager
 import com.adretsoftware.mehndipvcinterior.adapters.CategoryProductFunctions
@@ -86,7 +87,7 @@ class CategoryProductListActivity : AppCompatActivity(), CategoryProductFunction
                     call: Call<ArrayList<CategoryProductsModelItem>>,
                     t: Throwable
                 ) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(applicationContext,"data is empty",Toast.LENGTH_LONG).show()
                 }
 
             })

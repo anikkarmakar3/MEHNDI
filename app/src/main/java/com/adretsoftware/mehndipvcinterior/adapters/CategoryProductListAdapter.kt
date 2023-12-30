@@ -52,7 +52,7 @@ class CategoryProductListAdapter(
 
     override fun onBindViewHolder(holder: CategoryProductListAdapter.ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.name.text = items[position].name
-        holder.tvNotAvailable.text = items[position].status
+        /*holder.tvNotAvailable.text = items[position].status*/
         holder.root.setOnClickListener {
             listener.ItemClickFunc(items[position],it)
         }
@@ -128,10 +128,10 @@ class CategoryProductListAdapter(
 //        var priceUnit = view.findViewById<TextView>(R.id.item_price_unit)
         var name = view.findViewById<TextView>(R.id.item_title)
         var root = view.findViewById<CardView>(R.id.item_root)
-        var deleteBtn = view.findViewById<ImageView>(R.id.deleteBtn)
+        /*var deleteBtn = view.findViewById<ImageView>(R.id.deleteBtn)
         //        var itemDiscountLayout = view.findViewById<LinearLayout>(R.id.itemDiscountLayout)
 //        var itemDiscountPrice = view.findViewById<TextView>(R.id.itemDiscountPrice)
-        var tvNotAvailable = view.findViewById<TextView>(R.id.tvNotAvailable)
+        var tvNotAvailable = view.findViewById<TextView>(R.id.tvNotAvailable)*/
     }
 
 //    interface ClickListener2 {

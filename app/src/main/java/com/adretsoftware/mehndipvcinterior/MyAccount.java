@@ -11,6 +11,7 @@ import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage;
 import com.adretsoftware.mehndipvcinterior.daos.Utilis;
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityMyAccountBinding;
 import com.adretsoftware.mehndipvcinterior.ui.InvoicesActivity;
+import com.adretsoftware.mehndipvcinterior.ui.MyTeam;
 import com.adretsoftware.mehndipvcinterior.ui.NewInvoiceActivity;
 
 public class MyAccount extends AppCompatActivity {
@@ -33,6 +34,13 @@ public class MyAccount extends AppCompatActivity {
 //                startActivity(new Intent(getApplicationContext(), webhostMyOrder.class));
                 /*startActivity(new Intent(getApplicationContext(), InvoicesActivity.class));*/
                 startActivity(new Intent(getApplicationContext(), NewInvoiceActivity.class));
+            }
+        });
+
+        binding.btnMyTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MyTeam.class));
             }
         });
 

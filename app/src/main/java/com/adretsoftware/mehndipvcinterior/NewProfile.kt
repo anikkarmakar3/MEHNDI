@@ -58,7 +58,7 @@ class NewProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         )
 
         val typeAdapter: ArrayAdapter<*>
-        typeAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
+        typeAdapter = ArrayAdapter<String>(this, R.layout.spinner_list, list)
         binding.spinnerAccountType.adapter = typeAdapter
         binding.spinnerAccountType.onItemSelectedListener = this
         binding.searchUserText.setOnClickListener(View.OnClickListener { funcUserSpin() })

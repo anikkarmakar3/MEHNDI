@@ -3,20 +3,15 @@ package com.adretsoftware.mehndipvcinterior
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adretsoftware.mehndipvcinterior.adapters.*
 import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage
 import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
-import com.adretsoftware.mehndipvcinterior.daos.Utilis
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityMyComissionsBinding
 import com.adretsoftware.mehndipvcinterior.models.*
 import com.google.gson.Gson
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,21 +49,20 @@ class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, ord
         /*params["id"] = "23"
         params["user_id"] = "1686380538723"*/
 
-        RetrofitClient.getApiHolder().getAgentUserCommission(params)
-            .enqueue(object : Callback<ArrayList<CommissionModelItem>> {
+        RetrofitClient.getApiHolder().getNewAgentUserCommission(params)
+            .enqueue(object : Callback<ArrayList<NewCommisionModelItem>> {
                 override fun onResponse(
-                    call: Call<ArrayList<CommissionModelItem>>,
-                    response: Response<ArrayList<CommissionModelItem>>
+                    call: Call<ArrayList<NewCommisionModelItem>>,
+                    response: Response<ArrayList<NewCommisionModelItem>>
                 ) {
                     if (response.isSuccessful){
-                        myCommissionAdapter.update(response.body()!!)
+                        myCommissionAdapter.update(response.body()!! )
                     }
                 }
 
-                override fun onFailure(call: Call<ArrayList<CommissionModelItem>>, t: Throwable) {
-                    println(t.localizedMessage)
+                override fun onFailure(call: Call<ArrayList<NewCommisionModelItem>>, t: Throwable) {
+                    Toast.makeText(applicationContext,"data is empty",Toast.LENGTH_SHORT).show()
                 }
-
 
             })
 

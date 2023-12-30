@@ -148,6 +148,9 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
     private fun init() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             permissionList.add(Manifest.permission.READ_MEDIA_IMAGES)
+            permissionList.add(Manifest.permission.READ_MEDIA_AUDIO)
+            permissionList.add(Manifest.permission.READ_MEDIA_VIDEO)
+            permissionList.add(Manifest.permission.CAMERA)
         } else {
             permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -175,6 +178,10 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
                 imageUpload(uriGlobal, item_id, imageBinding)
             }*/
 
+        }
+
+        binding.mainImage.insert.setOnClickListener {
+            showOptionsDialog()
         }
 
         binding.mainImage.root.setOnClickListener(View.OnClickListener {
@@ -644,7 +651,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
   }
 
         val adapter = ArrayAdapter(this,
-            android.R.layout.simple_spinner_item,caterGoryName )
+            R.layout.spinner_list,caterGoryName )
         binding.name.adapter = adapter
 
         binding.name.onItemSelectedListener = object :

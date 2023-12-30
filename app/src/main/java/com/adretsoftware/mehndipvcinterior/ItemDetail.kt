@@ -1,5 +1,6 @@
 package com.adretsoftware.mehndipvcinterior
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
@@ -70,6 +71,7 @@ class ItemDetail : AppCompatActivity() {
 
         binding.addtocart.setOnClickListener{
             addtoCart()
+            startActivity(Intent(applicationContext, Cart::class.java))
         }
         var imageUrl = ArrayList<Image>()
         productItem.image.forEach {

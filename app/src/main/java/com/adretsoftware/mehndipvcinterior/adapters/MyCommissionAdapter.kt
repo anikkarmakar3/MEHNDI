@@ -1,26 +1,19 @@
 package com.adretsoftware.mehndipvcinterior.adapters
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.adretsoftware.mehndipvcinterior.R
-import com.adretsoftware.mehndipvcinterior.daos.Constants
-import com.adretsoftware.mehndipvcinterior.daos.Utilis
 import com.adretsoftware.mehndipvcinterior.models.CommissionModelItem
-import com.adretsoftware.mehndipvcinterior.models.MyCommissionModel
-import com.bumptech.glide.Glide
+import com.adretsoftware.mehndipvcinterior.models.NewCommisionModelItem
 
 class MyCommissionAdapter() :
     RecyclerView.Adapter<MyCommissionAdapter.ViewHolder>() {
     /*var myCommission = (arrayListOf<MyCommissionModel>())*/
-    private var commissionData = arrayListOf<CommissionModelItem>()
+    private var commissionData = arrayListOf<NewCommisionModelItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -30,7 +23,7 @@ class MyCommissionAdapter() :
         return vh
     }
 
-    fun update(myCommission: ArrayList<CommissionModelItem>) {
+    fun update(myCommission: ArrayList<NewCommisionModelItem>) {
         this.commissionData = myCommission
         notifyDataSetChanged()
     }
@@ -45,8 +38,8 @@ class MyCommissionAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.orderitem_name.text = commissionData[position].product_name
-        holder.orderitem_price.text = commissionData[position].amount
+        holder.orderitem_name.text = commissionData[position].order_id
+        holder.orderitem_price.text = commissionData[position].earning_amount
         holder.orderbyname.text = commissionData[position].name
         /*holder.orderitem_code.text = myCommission[position].code*/
         /*holder.orderitem_quantity.text = commissionData[position].*/

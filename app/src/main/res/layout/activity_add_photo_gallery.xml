@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Add Product Name" />
+                    android:text="Gallery Category" />
                 <Spinner
                     android:id="@+id/name"
                     style="@style/myEdittext"
@@ -35,14 +35,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:paddingVertical="10dp"
-
                     />
                 <TextView
                     style="@style/myText4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Add Product image" />
+                    android:text="Gallery  Image" />
 
                 <include
                     android:id="@+id/mainImage"
