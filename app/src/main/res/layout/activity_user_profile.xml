@@ -31,10 +31,35 @@
                 android:layout_marginStart="@dimen/_16ssp"
                 android:layout_marginTop="@dimen/_30ssp"
                 android:fontFamily="@font/medium"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="My Account"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16ssp"
+                    android:fontFamily="@font/medium"
+                    android:gravity="center"
+                    android:text="Account ID: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp" />
+                <TextView
+                    android:id="@+id/account_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5ssp"
+                    android:fontFamily="@font/medium"
+                    android:gravity="center"
+                    android:text="My Account"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lnr_edit_profile"

@@ -198,6 +198,12 @@ interface RetrofitApiHolder {
         @Part("password") password: RequestBody
     ): Call<RetrofitResponse>
 
+    @FormUrlEncoded
+    @POST("forgot-password.php")
+    fun resetNewUserPassword(
+        @FieldMap params: Map<String, String>
+    ): Call<RetrofitResponse>
+
     @GET("user.php")
     fun getUser(): Call<RetrofitUser>
 
@@ -267,6 +273,13 @@ interface RetrofitApiHolder {
     @FormUrlEncoded
     @POST("tree-view.php")
     fun getTeamMembers(@FieldMap params: Map<String, String>):Call<List<MyTeamAdapterItem>>
+
+    @FormUrlEncoded
+    @POST("send-otp.php")
+    fun sendEmailOtp(@FieldMap params: Map<String, String>):Call<SendOtpModel>
+
+    @GET("get_rateChart.php")
+    fun getRedChart(): Call<MyChartModel>
 
     @GET("transaction_report.php")
     fun getTransactionReport(

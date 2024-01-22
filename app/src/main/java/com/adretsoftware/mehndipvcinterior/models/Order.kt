@@ -9,4 +9,6 @@ class Order {
     var title=""
     var name=""
     var product_id=""
+    var order_quantity=""
+    var temp_path = ""
 }

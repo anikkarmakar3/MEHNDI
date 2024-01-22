@@ -1,19 +1,24 @@
 package com.adretsoftware.mehndipvcinterior.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.adretsoftware.mehndipvcinterior.R
-import com.adretsoftware.mehndipvcinterior.models.CommissionModelItem
 import com.adretsoftware.mehndipvcinterior.models.NewCommisionModelItem
 
-class MyCommissionAdapter() :
+class MyCommissionAdapter(listener:Clicklistner) :
     RecyclerView.Adapter<MyCommissionAdapter.ViewHolder>() {
     /*var myCommission = (arrayListOf<MyCommissionModel>())*/
     private var commissionData = arrayListOf<NewCommisionModelItem>()
+    lateinit var listener: Clicklistner
+    init {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -41,6 +46,9 @@ class MyCommissionAdapter() :
         holder.orderitem_name.text = commissionData[position].order_id
         holder.orderitem_price.text = commissionData[position].earning_amount
         holder.orderbyname.text = commissionData[position].name
+        holder.root.setOnClickListener {
+            listener.itemClick(commissionData[position].invoice_path.toString())
+        }
         /*holder.orderitem_code.text = myCommission[position].code*/
         /*holder.orderitem_quantity.text = commissionData[position].*/
 
@@ -60,10 +68,15 @@ class MyCommissionAdapter() :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var orderitem_name = view.findViewById<TextView>(R.id.orderitem_name)
         var orderbyname = view.findViewById<TextView>(R.id.orderbyname)
+        var root = view.findViewById<CardView>(R.id.orderitem_root)
         var orderitem_image = view.findViewById<ImageView>(R.id.orderitem_image)
         var orderitem_code = view.findViewById<TextView>(R.id.orderitem_code)
         var orderitem_quantity = view.findViewById<TextView>(R.id.orderitem_quantity)
         var orderitem_price = view.findViewById<TextView>(R.id.orderitem_price)
         var discountTypeTxt = view.findViewById<TextView>(R.id.discountTypeTxt)
     }
+}
+
+interface Clicklistner{
+    fun itemClick(toString: String)
 }

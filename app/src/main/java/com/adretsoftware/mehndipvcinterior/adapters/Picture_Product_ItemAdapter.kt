@@ -45,6 +45,8 @@ class Picture_Product_ItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.cateSection.visibility = View.VISIBLE
+        holder.cate_number.text = items[position].id
        // holder.name.text = items[position].picture_name
 //        if(items[position].price.isNullOrEmpty()){
 //            holder.price.text=""
@@ -65,6 +67,8 @@ class Picture_Product_ItemAdapter(
         var name = view.findViewById<TextView>(R.id.item_title)
         var image = view.findViewById<ImageView>(R.id.item_image)
         var root = view.findViewById<CardView>(R.id.item_root)
+        var cate_number = view.findViewById<TextView>(R.id.cat_number)
+        var cateSection = view.findViewById<LinearLayout>(R.id.cate_section)
     }
 }
 

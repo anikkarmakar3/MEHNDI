@@ -11,6 +11,7 @@ import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage;
 import com.adretsoftware.mehndipvcinterior.daos.Utilis;
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityMyAccountBinding;
 import com.adretsoftware.mehndipvcinterior.ui.InvoicesActivity;
+import com.adretsoftware.mehndipvcinterior.ui.MyChartActivity;
 import com.adretsoftware.mehndipvcinterior.ui.MyTeam;
 import com.adretsoftware.mehndipvcinterior.ui.NewInvoiceActivity;
 
@@ -41,6 +42,13 @@ public class MyAccount extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MyTeam.class));
+            }
+        });
+
+        binding.btnMyChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MyChartActivity.class));
             }
         });
 

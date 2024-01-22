@@ -1,10 +1,13 @@
 package com.adretsoftware.mehndipvcinterior
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityImageViewZoomBinding
 import com.bumptech.glide.Glide
@@ -16,6 +19,7 @@ import com.bumptech.glide.request.RequestListener
 class ImageViewZoomActivity : AppCompatActivity() {
     private var imageurl: String = ""
     private lateinit var binding: ActivityImageViewZoomBinding
+    private val watermarkBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +32,14 @@ class ImageViewZoomActivity : AppCompatActivity() {
             imageurl = it!!
         }
 
-        binding.tvHeading.text = intent.getStringExtra("name")
+        /*binding.tvHeading.text = intent.getStringExtra("name")*/
+        /*val layoutParams = binding.watermarkImageView.layoutParams as ConstraintLayout.LayoutParams
+        layoutParams.bottomMargin = 16
+        layoutParams.endMargin = 16
+        watermarkImageView.layoutParams = layoutParams*/
 
         showImage()
+
     }
 
     private fun showImage() {

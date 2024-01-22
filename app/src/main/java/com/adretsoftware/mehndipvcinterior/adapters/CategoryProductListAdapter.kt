@@ -56,6 +56,7 @@ class CategoryProductListAdapter(
         holder.root.setOnClickListener {
             listener.ItemClickFunc(items[position],it)
         }
+        holder.tvNotAvailable.text = items[position].status
         /*if (items[position].status == Constants.NotAvailable || items[position].user_set_status == Constants.NotAvailable) {
             holder.tvNotAvailable.visibility = View.VISIBLE
         } else {
@@ -130,8 +131,8 @@ class CategoryProductListAdapter(
         var root = view.findViewById<CardView>(R.id.item_root)
         /*var deleteBtn = view.findViewById<ImageView>(R.id.deleteBtn)
         //        var itemDiscountLayout = view.findViewById<LinearLayout>(R.id.itemDiscountLayout)
-//        var itemDiscountPrice = view.findViewById<TextView>(R.id.itemDiscountPrice)
-        var tvNotAvailable = view.findViewById<TextView>(R.id.tvNotAvailable)*/
+//        var itemDiscountPrice = view.findViewById<TextView>(R.id.itemDiscountPrice)*/
+        var tvNotAvailable = view.findViewById<TextView>(R.id.tvnotavail)
     }
 
 //    interface ClickListener2 {

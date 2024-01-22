@@ -364,7 +364,7 @@ class AddPhotoGalleryActivity : AppCompatActivity() {
                     binding.mainImage.insert.visibility = View.GONE
                     binding.mainImage.delete.visibility = View.GONE
                     imageFile = File(RealPathUtil.getRealPath(this, uriGlobal!!)!!)
-                    newImageUpload(imageFile)
+                    /*newImageUpload(imageFile)*/
                    this.requestCode=requestCode
 
                 } catch (e: Exception) {

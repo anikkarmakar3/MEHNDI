@@ -67,6 +67,7 @@ class ItemAdapter(
             holder.tvNotAvailable.visibility = View.GONE
         }
 */
+        holder.tvNotAvailable.visibility = View.GONE
         holder.name.text = items[position].name
 //        if (items[position].price.isNullOrEmpty() || items[position].price == "null") {
 //            holder.price.text = ""
@@ -154,8 +155,8 @@ class ItemAdapter(
         var root = view.findViewById<CardView>(R.id.item_root)
         /*var deleteBtn = view.findViewById<ImageView>(R.id.deleteBtn)
         //        var itemDiscountLayout = view.findViewById<LinearLayout>(R.id.itemDiscountLayout)
-//        var itemDiscountPrice = view.findViewById<TextView>(R.id.itemDiscountPrice)
-        var tvNotAvailable = view.findViewById<TextView>(R.id.tvNotAvailable)*/
+//        var itemDiscountPrice = view.findViewById<TextView>(R.id.itemDiscountPrice)*/
+        var tvNotAvailable = view.findViewById<TextView>(R.id.tvnotavail)
     }
 
     interface ClickListener {

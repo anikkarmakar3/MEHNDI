@@ -21,6 +21,7 @@ class UserProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile)
+        binding.accountId.text = MySharedStorage.getUserId()
         init()
     }
 

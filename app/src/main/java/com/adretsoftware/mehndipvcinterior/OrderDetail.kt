@@ -1,5 +1,8 @@
 package com.adretsoftware.mehndipvcinterior
 
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +29,7 @@ class OrderDetail : AppCompatActivity(), orderItemFunctions {
     lateinit var adapter: OrderItemAdapter
     lateinit var binding: ActivityOrderDetailBinding
     var command: String? = ""
+    var total : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOrderDetailBinding.inflate(layoutInflater)
@@ -86,7 +90,9 @@ class OrderDetail : AppCompatActivity(), orderItemFunctions {
                             orderItem.name = it.name
                             orderItem.features = it.features
                             orderItemDetails.add(orderItem)
+                            total += it.quantity.toInt()
                         }
+                        binding.totalquantity.text = total.toString()
                         adapter.update(orderItemDetails)
                     } else
                         Log.d("TAG", "getOrderITem:" + response.code())
@@ -104,7 +110,18 @@ class OrderDetail : AppCompatActivity(), orderItemFunctions {
     }
 
     fun invoice() {
-        Toast.makeText(
+        try {
+            var download= applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            var PdfUri = Uri.parse(Constants.apiUrl2 + order.temp_path)
+            var getPdf = DownloadManager.Request(PdfUri)
+            getPdf.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            download.enqueue(getPdf)
+            Toast.makeText(applicationContext,"Download Started", Toast.LENGTH_LONG).show()
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+        }
+        /*Toast.makeText(
             applicationContext,
             "please hold on for a moment. Don't press back button",
             Toast.LENGTH_LONG
@@ -114,7 +131,7 @@ class OrderDetail : AppCompatActivity(), orderItemFunctions {
             this.order = order
             this.user = MySharedStorage.getUserr()
         }
-        InvoiceGenerator(this, invoiceData)
+        InvoiceGenerator(this, invoiceData)*/
     }
 
     fun confirm() {

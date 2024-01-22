@@ -42,7 +42,7 @@ class CartItemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.quantity.text=items[position].quantity
-        holder.code.text=items[position].code
+        /*holder.code.text=items[position].code*/
         holder.name.text=items[position].name
         holder.price.text=items[position].price
         holder.increase.setOnClickListener(View.OnClickListener {
@@ -69,7 +69,7 @@ class CartItemAdapter(
         var image=view.findViewById<ImageView>(R.id.cart_image)
         var price=view.findViewById<TextView>(R.id.cart_price)
         var name=view.findViewById<TextView>(R.id.cart_name)
-        var code=view.findViewById<TextView>(R.id.cart_code)
+        /*var code=view.findViewById<TextView>(R.id.cart_code)*/
         var root=view.findViewById<CardView>(R.id.cart_root)
         var decrease=view.findViewById<ImageButton>(R.id.cart_decrease)
         var increase=view.findViewById<ImageButton>(R.id.cart_increase)

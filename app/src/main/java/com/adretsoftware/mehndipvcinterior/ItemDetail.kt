@@ -70,8 +70,12 @@ class ItemDetail : AppCompatActivity() {
 //        }
 
         binding.addtocart.setOnClickListener{
-            addtoCart()
-            startActivity(Intent(applicationContext, Cart::class.java))
+            if(productItem.status == Constants.Available){
+                addtoCart()
+                startActivity(Intent(applicationContext, Cart::class.java))
+            }else{
+                Toast.makeText(applicationContext,"This product is not available right now!!",Toast.LENGTH_LONG).show()
+            }
         }
         var imageUrl = ArrayList<Image>()
         productItem.image.forEach {

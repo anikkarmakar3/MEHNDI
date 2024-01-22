@@ -22,6 +22,7 @@ import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.random.Random
 
 class SuperA : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     var accountType = Constants.DISTRIBUTER
@@ -78,7 +79,7 @@ class SuperA : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     it.password = password;
 
                     if (!isUpdate) {
-                        it.user_id = System.currentTimeMillis().toString()
+                        it.user_id = Random.nextInt(10000, 100000).toString()
                         if (accountType != Constants.DISTRIBUTER) {
                             if (parentUser != null) {
                                 it.parent = parentUser.user_id

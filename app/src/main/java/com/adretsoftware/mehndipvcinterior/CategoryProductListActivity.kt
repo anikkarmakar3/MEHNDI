@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.GridLayoutManager
 import com.adretsoftware.mehndipvcinterior.adapters.CategoryProductFunctions
 import com.adretsoftware.mehndipvcinterior.adapters.CategoryProductListAdapter
+import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage
 import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityCategoryProductListBinding
 import com.adretsoftware.mehndipvcinterior.models.CategoryProductsModelItem
@@ -28,6 +29,7 @@ class CategoryProductListActivity : AppCompatActivity(), CategoryProductFunction
     private var parentitemid = ""
     lateinit var catId : String
     lateinit var categorId : RequestBody
+    lateinit var user_id : RequestBody
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +51,8 @@ class CategoryProductListActivity : AppCompatActivity(), CategoryProductFunction
 
         catId = bundle?.getString("cat_id").toString()
         categorId = RequestBody.create(MediaType.parse("text/plain"), catId)
+        user_id = RequestBody.create(MediaType.parse("text/plain"), MySharedStorage.getUserId())
+
 
         adapter = CategoryProductListAdapter(
             this,
@@ -70,6 +74,7 @@ class CategoryProductListActivity : AppCompatActivity(), CategoryProductFunction
         val params: MutableMap<String, String> = HashMap()
 
         params["cat_id"] = catId
+        params["user_id"] = MySharedStorage.getUserId()
 
         RetrofitClient.getApiHolder().getCategoryProducts(params)
             .enqueue(object : Callback<ArrayList<CategoryProductsModelItem>> {

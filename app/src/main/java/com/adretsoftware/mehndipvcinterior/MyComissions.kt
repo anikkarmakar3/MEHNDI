@@ -1,6 +1,9 @@
 package com.adretsoftware.mehndipvcinterior
 
+import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -16,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, orderFunctions {
+class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, orderFunctions,Clicklistner {
     lateinit var binding: ActivityMyComissionsBinding
 
     //    lateinit var userAdapter: UserAdapter
@@ -34,7 +37,7 @@ class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, ord
         setContentView(binding.root)
         window.statusBarColor = getColor(R.color.sixty1)
 
-        myCommissionAdapter = MyCommissionAdapter()
+        myCommissionAdapter = MyCommissionAdapter(this)
 //        userAdapter = UserAdapter(this, "")
         /*orderAdapter = OrderAdapter(this, layoutInflater, this)
         orderItemAdapter = OrderItemAdapter(this, Constants.COMISSION)*/
@@ -218,6 +221,16 @@ class MyComissions : AppCompatActivity(), userFunctions, orderItemFunctions, ord
     }
 
     override fun itemClick(itemId: String) {
-
+        try {
+            var download= applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            var PdfUri = Uri.parse(Constants.apiUrl2 + itemId)
+            var getPdf = DownloadManager.Request(PdfUri)
+            getPdf.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            download.enqueue(getPdf)
+            Toast.makeText(applicationContext,"Download Started", Toast.LENGTH_LONG).show()
+        }
+        catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 }

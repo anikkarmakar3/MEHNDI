@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="145dp"
             android:src="@drawable/banner1"/>
-        <TextView
+        <!--<TextView
             android:id="@+id/item_title"
             android:textAlignment="center"
             style="@style/myText4"
@@ -29,8 +29,39 @@
             android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
-
+            />-->
+        <LinearLayout
+            android:id="@+id/cate_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/cat_title"
+                style="@style/myText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:maxLines="1"
+                android:text="MP-"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/cat_number"
+                style="@style/myText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:maxLines="1"
+                android:text="3"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

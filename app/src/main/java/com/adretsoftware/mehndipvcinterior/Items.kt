@@ -174,7 +174,7 @@ class Items : AppCompatActivity(), itemFunctions {
         if (item.price.isNullOrBlank()) {
             isCategory = false
             binding.addproduct.text = "Add Product"
-            binding.heading.text = "Products"
+            /*binding.heading.text = "Products"*/
 //            if (Utilis.isLoginAsAdmin() || MySharedStorage.getUserType() == Constants.AGENT) {
             val parent = RequestBody.create(MediaType.parse("text/plain"), item.item_id)
             val user_id =

@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.adretsoftware.mehndipvcinterior.daos.Constants
 import com.adretsoftware.mehndipvcinterior.daos.MySharedStorage
 import com.adretsoftware.mehndipvcinterior.daos.RetrofitClient
 import com.adretsoftware.mehndipvcinterior.databinding.ActivityForgotPasswordBinding
+import com.adretsoftware.mehndipvcinterior.models.MyTeamAdapterItem
 import com.adretsoftware.mehndipvcinterior.models.RetrofitResponse
+import com.adretsoftware.mehndipvcinterior.models.SendOtpModel
+import com.adretsoftware.mehndipvcinterior.models.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -28,6 +32,8 @@ class ForgotPassword : AppCompatActivity() {
     var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks? = null
     var mVerificationId: String? = null
     var mResendToken: PhoneAuthProvider.ForceResendingToken? = null
+    var otp: String = ""
+    var email: String = ""
 
     private lateinit var progressDialog: ProgressDialog
     private fun showLoading() {
@@ -55,33 +61,55 @@ class ForgotPassword : AppCompatActivity() {
                 ).show()
             } else {
                 showLoading()
-                val options = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                val params : HashMap<String,String> = HashMap()
+                email = binding.etMobileNumber.text.toString()
+                params["email"] = email
+
+                RetrofitClient.getApiHolder().sendEmailOtp(params)
+                    .enqueue(object : Callback<SendOtpModel> {
+                        override fun onResponse(
+                            call: Call<SendOtpModel>,
+                            response: Response<SendOtpModel>
+                        ) {
+                            if (response.isSuccessful){
+                                closeLoading()
+                                otp = response.body()!!.otp.toString()
+                                otpEnterScreen()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<SendOtpModel>, t: Throwable) {
+                            Toast.makeText(applicationContext,"Something went wrong",Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+                /*val options = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
                     .setPhoneNumber("+91" + binding.etMobileNumber.text)
                     .setTimeout(60L, TimeUnit.SECONDS)
                     .setActivity(this)
                     .setCallbacks(mCallbacks!!)
                     .build()
-                PhoneAuthProvider.verifyPhoneNumber(options)
+                PhoneAuthProvider.verifyPhoneNumber(options)*/
             }
         }
 
         binding.btnVerifyOtp.setOnClickListener {
-            if (binding.etOtpEnter.text.length == 6) {
-                showLoading()
-                val credential = PhoneAuthProvider.getCredential(
+            if (binding.etOtpEnter.text.toString() == otp && binding.etOtpEnter.text.length == 4) {
+                passwordEnterScreen()
+                /*val credential = PhoneAuthProvider.getCredential(
                     mVerificationId!!, binding.etOtpEnter.text.toString()
-                )
-                signInWithPhoneAuthCredential(credential)
+                )*/
+                /*signInWithPhoneAuthCredential(credential)*/
             } else {
                 Toast.makeText(
                     applicationContext,
-                    "Enter 6 digits otp",
+                    "Enter 4 digits otp",
                     Toast.LENGTH_SHORT
                 ).show()
             }
         }
 
-        mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        /*mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationFailed(e: FirebaseException) {
                 closeLoading()
                 Toast.makeText(
@@ -104,7 +132,7 @@ class ForgotPassword : AppCompatActivity() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
                 signInWithPhoneAuthCredential(p0)
             }
-        }
+        }*/
 
         binding.btnSavePassword.setOnClickListener {
             if (binding.etNewPassword.text.toString().isEmpty()) {
@@ -114,8 +142,7 @@ class ForgotPassword : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                showLoading()
-                val phone = RequestBody.create(
+                val email = RequestBody.create(
                     MediaType.parse("text/plain"),
                     binding.etMobileNumber.text.toString()
                 )
@@ -124,13 +151,16 @@ class ForgotPassword : AppCompatActivity() {
                     binding.etNewPassword.text.toString()
                 )
 
-                RetrofitClient.getApiHolder().resetUserPassword(phone, password)
+                val params : HashMap<String,String> = HashMap()
+                params["email"] = binding.etMobileNumber.text.toString()
+                params["password"] = binding.etNewPassword.text.toString()
+
+                RetrofitClient.getApiHolder().resetNewUserPassword(params)
                     .enqueue(object : Callback<RetrofitResponse> {
                         override fun onResponse(
                             call: Call<RetrofitResponse>,
                             response: Response<RetrofitResponse>
                         ) {
-                            closeLoading()
                             if (response.code() == Constants.code_OK) {
                                 Toast.makeText(
                                     this@ForgotPassword,
@@ -138,17 +168,15 @@ class ForgotPassword : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 finish()
-                            } else {
-                                Toast.makeText(
-                                    this@ForgotPassword,
-                                    response.body()?.message + "",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                             }
                         }
 
                         override fun onFailure(call: Call<RetrofitResponse>, t: Throwable) {
-
+                            Toast.makeText(
+                                this@ForgotPassword,
+                                t.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     })
             }

@@ -46,6 +46,7 @@ class Cart : AppCompatActivity(), cartItemFunctions {
     }
 
     override fun deleteItem(position: Int) {
+        price -= items[position].price.toFloat()
         deleteCart(items[position].user_id, items[position].item_id)
         items.removeAt(position)
         updateData()
@@ -67,7 +68,7 @@ class Cart : AppCompatActivity(), cartItemFunctions {
         Log.d("TAG", "increaseQuant::quantity${items.get(position).quantity}")
         Log.d("TAG", "increaseQuant::total_price${items.get(position).total_price}")
 
-      price=  items.get(position).total_price.toFloat()
+        /*price =  items.get(position).total_price.toFloat()*/
         binding.amount.text = price.toString()
         RetrofitClient.getApiHolder().updateCartQuantity(item_id, user_id, quantity, total_price)
             .enqueue(object : Callback<RetrofitResponse> {
@@ -77,7 +78,7 @@ class Cart : AppCompatActivity(), cartItemFunctions {
                 ) {
                     Log.d("TAG", "updateCartQuantity:" + response.code().toString())
                     if (response.code() == Constants.code_OK) {
-                        holder.quantity.setText(items[position].quantity)
+                        holder.quantity.text = items[position].quantity
                         updateData()
                     }
                 }
@@ -212,7 +213,8 @@ class Cart : AppCompatActivity(), cartItemFunctions {
             val orderItem = OrderItem()
             orderItem.fromCartItem(item)
             orderItem.order_id = order.order_id
-            order.product_id = item.item_id
+            order.product_id = order.product_id + ", " + item.item_id
+            order.order_quantity = order.order_quantity + ", " + item.quantity
 
 
             RetrofitClient.getApiHolder().setOrderItems(orderItem)
@@ -230,6 +232,8 @@ class Cart : AppCompatActivity(), cartItemFunctions {
                 })
             if (item == items.last()) {
                 order.title = order.title.substring(2, order.title.length)
+                order.product_id = order.product_id.substring(2, order.product_id.length)
+                order.order_quantity = order.order_quantity.substring(2, order.order_quantity.length)
                 RetrofitClient.getApiHolder().deleteWholeCart(user_id)
                     .enqueue(object : Callback<RetrofitResponse> {
                         override fun onResponse(

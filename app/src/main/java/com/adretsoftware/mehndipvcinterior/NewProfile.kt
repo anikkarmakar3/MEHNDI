@@ -24,6 +24,7 @@ import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Random
 
 class NewProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     var accountType = Constants.CHOOSE_ACCOUNT_TYPE
@@ -51,8 +52,8 @@ class NewProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val list = listOf<String>(
             Constants.CHOOSE_ACCOUNT_TYPE,
-            Constants.DISTRIBUTER,
             Constants.AGENT,
+            Constants.DISTRIBUTER,
             Constants.RETAILER,
             Constants.DEALER
         )
@@ -94,7 +95,7 @@ class NewProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     it.password = password;
 
                     if (!isUpdate) {
-                        it.user_id = System.currentTimeMillis().toString()
+                        it.user_id = kotlin.random.Random.nextInt(10000, 100000).toString()
                         if (accountType != Constants.DISTRIBUTER) {
                             it.parent = parentUser.user_id
                             createUser(user)

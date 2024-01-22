@@ -43,13 +43,47 @@
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+        android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/linear"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total :"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/textview4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="₹"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/amount"
+                style="@style/myText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1250"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!--<TextView
             style="@style/myText4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,17 +112,26 @@
             android:layout_weight="100"
             android:text="0"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" />-->
 
+        <!--<Button
+            android:id="@+id/continueBtn"
+            style="@style/myButton"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:padding="15dp"
+            android:text="Place order" />-->
         <Button
             android:id="@+id/continueBtn"
             style="@style/myButton"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="Place order" />
-
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Place order"
+            />
     </LinearLayout>
+
+    <!--</LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

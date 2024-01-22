@@ -28,6 +28,7 @@ class OrderItemAdapter(
 
     var listener:orderItemFunctions
     var items= arrayListOf<OrderItem>()
+    var total : Int = 0
     lateinit var command: String
     init {
         this.listener=listener
@@ -50,7 +51,7 @@ class OrderItemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.code.text=items[position].code
+        holder.code.visibility = View.GONE
         holder.name.text=items[position].name
         holder.price.text=items[position].price
         holder.quantity.text=items[position].quantity
